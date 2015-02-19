@@ -1,0 +1,6 @@
+D:\zlodey\CSharp\task-1\task-1\bin\Debug\task-1.exe.config
+D:\zlodey\CSharp\task-1\task-1\bin\Debug\task-1.exe
+D:\zlodey\CSharp\task-1\task-1\bin\Debug\task-1.pdb
+D:\zlodey\CSharp\task-1\task-1\obj\Debug\task-1.csprojResolveAssemblyReference.cache
+D:\zlodey\CSharp\task-1\task-1\obj\Debug\task-1.exe
+D:\zlodey\CSharp\task-1\task-1\obj\Debug\task-1.pdb
