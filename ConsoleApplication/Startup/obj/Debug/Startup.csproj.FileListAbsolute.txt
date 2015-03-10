@@ -3,3 +3,4 @@ D:\zlodey\CSharp\ConsoleApplication\Startup\bin\Debug\Startup.exe
 D:\zlodey\CSharp\ConsoleApplication\Startup\bin\Debug\Startup.pdb
 D:\zlodey\CSharp\ConsoleApplication\Startup\obj\Debug\Startup.exe
 D:\zlodey\CSharp\ConsoleApplication\Startup\obj\Debug\Startup.pdb
+D:\zlodey\CSharp\ConsoleApplication\Startup\obj\Debug\Startup.csprojResolveAssemblyReference.cache
