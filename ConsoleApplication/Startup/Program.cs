@@ -16,7 +16,7 @@ namespace Startup
             s1 = "Bu-ga-ga"; // TODO VS: ?
             s2 = "Metod 2:  ";// TODO VS: ?
             s.Method1(s1);
-            s.Method2(s2, 13, 13);// TODO VS: [CG 5]
+            s.Method2(s2, 13, 13);
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
