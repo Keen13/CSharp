@@ -3,35 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-// TODO VS: [CG 1]
 
 namespace Startup  
 {
     public class Program   
     {
-		// TODO VS: правильное написание слова "method" - исправь по всему коду
-        private void metod1(string s) // TODO VS: [CG 2] [CG 3]
-        {            
-            Console.WriteLine(s);            
-        } // TODO VS: [CG 4]
-        private void metod2(string q1,int a,int b) // TODO VS: [CG 2] [CG 3] {CG 5}
-        {
-            string q = Convert.ToString(a*b); // TODO VS: [CG 6] ?
-            string q2 = q1 + q;
-            Program s = new Program();            // TODO VS: ?
-            s.metod1(q2);            
-        } // TODO VS: [CG 4]
         public static void Main()  // TODO VS: [CG 2] 
         {
             Program s = new Program();// TODO VS: ?
-            string s1, s2; // TODO VS: [CG 7]
+            string s1;
+            string s2;
             s1 = "Bu-ga-ga"; // TODO VS: ?
             s2 = "Metod 2:  ";// TODO VS: ?
-            s.metod1(s1);
-            s.metod2(s2,13,13);// TODO VS: [CG 5]
-            Console.WriteLine("Press any key to exit."); 
+            s.Method1(s1);
+            s.Method2(s2, 13, 13);// TODO VS: [CG 5]
+            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
+        
+        private void Method1(string s) // TODO VS: [CG 2]
+        {            
+            Console.WriteLine(s);            
+        } 
+        
+        private void Method2(string q1, int a, int b) // TODO VS: [CG 2] 
+        {
+            string q = Convert.ToString(a * b); // TODO VS:  ?
+            string q2 = q1 + q;
+            Program s = new Program();            // TODO VS: ?
+            s.Method1(q2);            
+        }      
     }
 }
 
