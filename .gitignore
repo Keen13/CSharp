@@ -1,0 +1,63 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.dbmdl
+ipch/
+obj/
+Generated_Code/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+log.txt
+liquibase.local.properties
+*.orig
+*.playlist
+/packages
+*.gitignore
+packages
+ 
+OneInc.ProcessOne.Web.API/logs/*
+OneInc.ProcessOne.Web.Admin/logs/*
+OneInc.ProcessOne.App.Data/Generated_Code/OneInc.ProcessOne.Web.Admin.g.cs
+OneInc.ProcessOne.App/Generated_Code/OneInc.ProcessOne.Web.Admin.g.cs
+OneInc.ProcessOne.Web.Admin/ClientBin/OneInc.ProcessOne.App.xap
+OneInc.ProcessOne.Database.Liquibase/environments/dev.local/*
+OneInc.ProcessOne.Web.Admin.UI/App_Data/Temp/*
+OneInc.ProcessOne.Web.Admin.UI/logs/*.txt
