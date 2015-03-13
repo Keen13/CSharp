@@ -15,17 +15,17 @@ namespace Startup
             Method1(s1);
             Method2(s2, 13, 13);
             int i = 10;
-            PrintInt(i);
+            PrintValue(i);
             bool b = true;
-            PrintBool(b);
+            PrintValue(b);
             char ch = 'C';
-            PrintChar(ch);
+            PrintValue(ch);
             decimal d = 123.45m;
-            PrintDecimal(d);
+            PrintValue(d);
             double db = 99.44;
-            PrintDouble(db);
+            PrintValue(db);
             string s = "end";
-            PrintString(s);
+            PrintValue(s);
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
@@ -41,33 +41,33 @@ namespace Startup
             string q2 = q1 + q;
             Method1(q2);            
         }
-        
-        private static void PrintInt(int i)
+
+        private static void PrintValue(int i)
         {
             Console.WriteLine("Value = " + i);   
         }
 
-        private static void PrintBool(bool b)
+        private static void PrintValue(bool b)
         {
             Console.WriteLine("Value = " + b);
         }
 
-        private static void PrintChar(Char ch)
+        private static void PrintValue(Char ch)
         {
             Console.WriteLine("Value = " + ch);
         }
 
-        private static void PrintDecimal(decimal d)
+        private static void PrintValue(decimal d)
         {
             Console.WriteLine("Value = " + d);
         }
 
-        private static void PrintDouble(double db)
+        private static void PrintValue(double db)
         {
             Console.WriteLine("Value = " + db);
         }
 
-        private static void PrintString(string s)
+        private static void PrintValue(string s)
         {
             Console.WriteLine("Value = " + s);
         }
