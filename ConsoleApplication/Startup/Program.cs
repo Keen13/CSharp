@@ -10,10 +10,14 @@ namespace Startup
     {
         public static void Main()
         {
-            string s1 = "Bu-ga-ga";
-            string s2 = "Metod 2:  ";
-            Method1(s1);
-            Method2(s2, 13, 13);
+			// TODO VS: Используй пустые строки, чтобы разбить  код на  логически связанные блоки. Ты сказал,  не любишь фарш из кода, и это хорошо.   
+			// TODO VS: Сплошная простыня из кода это другой пример плохого структурирования. 
+			// TODO VS: Как на какие куски разбить  код решай сам,  потом обсудим, если получится криво.  Один блок вполне может состоять и из одной строки,
+			// TODO VS: если она  логически отделена от  соседних. И кстати,  возможен другой порядок строк.
+            string s1 = "Bu-ga-ga"; // TODO VS: старый код можешь удалить. Если тебе потом он вдруг понадобится,  напишешь снова.
+            string s2 = "Metod 2:  ";// TODO VS: старый код можешь удалить
+            Method1(s1);// TODO VS: старый код можешь удалить
+            Method2(s2, 13, 13);// TODO VS: старый код можешь удалить
             int i = 10;
             PrintValue(i);
             bool b = true;
@@ -52,7 +56,7 @@ namespace Startup
             Console.WriteLine("Value = " + b);
         }
 
-        private static void PrintValue(Char ch)
+        private static void PrintValue(Char ch) // TODO VS [CG 1]
         {
             Console.WriteLine("Value = " + ch);
         }
@@ -71,6 +75,18 @@ namespace Startup
         {
             Console.WriteLine("Value = " + s);
         }
-
+// TODO VS:  Ненужная пустая строка. Между фигурными скобками, закрывающими блоки разного уровня, строка не нужна [coding guidelines]
     }
 }
+
+// TODO VS: [CG 1] для встроенных типов C# есть два способа  объявлять их тип - один через имя типа, другой через  соответствующее ему кодовое имя (см таблицу).
+// TODO VS: Всегда используй для встроенных типов кодовое имя (имена чувствительны  к регистру). Сейчас ты их используешь вперемешку (сам того не замечая)
+// TODO VS: 	Имя типа		Кодовое имя
+// TODO VS:		Int32			int
+// TODO VS:		Int16			short
+// TODO VS:		Int64			long
+// TODO VS:		Boolean			bool	
+// TODO VS:		Char			char
+// TODO VS:		Decimal			decimal	
+// TODO VS:		String			string
+// TODO VS:		Double			double
