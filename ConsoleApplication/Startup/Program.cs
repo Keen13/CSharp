@@ -10,6 +10,17 @@ namespace Startup
     {
         public static void Main()
         {
+            Blok1();
+            
+            Program2 arg = new Program2();
+            arg.Blok2(); 
+
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+
+        private static void Blok1()
+        {
             int i = 10;
             bool b = true;
             char ch = 'C';
@@ -17,28 +28,12 @@ namespace Startup
             double db = 99.44;
             string s = "end";
 
-            PrintValue(i);                
-            PrintValue(b);            
-            PrintValue(ch);            
-            PrintValue(d);            
-            PrintValue(db);            
-            PrintValue(s);
-            
-            Console.WriteLine("Bloсk 2:");
-            string[] inString = new string[6]; // TODO VS:  в подзадаче 3 сказано "Добавить во второй блок  код...", в не заменить =)
-										 // TODO VS: то есть второй блок должен  и выводить разные значения, и парсить их + выводить распарсенное.
-										 // TODO VS: Вторая часть у тебя уже есть...
-            inString[0] = "123";
-            inString[1] = "true";
-            inString[2] = "C";
-            inString[3] = "123,45";
-            inString[4] = "99,12";
-            inString[5] = "end";
-            Program2 arg = new Program2();
-            arg.Conversion(inString); 
-
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
+            PrintValue(i);
+            PrintValue(b);
+            PrintValue(ch);
+            PrintValue(d);
+            PrintValue(db);
+            PrintValue(s); 
         }
         
         private static void PrintValue(int i)
@@ -73,15 +68,26 @@ namespace Startup
     }
     public class Program2
     {
-        public void Conversion(string[] inString) 
+        public void Blok2()
         {
-            Console.WriteLine("Value = " + inString[0]);
-            int i = int.Parse(inString[0]);
-            PrintValue(i);
+            Console.WriteLine("Bloсk 2:");
+            string[] inString = new string[6];
+            inString[0] = "123";
+            inString[1] = "true";
+            inString[2] = "C";
+            inString[3] = "123,45";
+            inString[4] = "99,12";
+            inString[5] = "end";
+            Conversion(inString); 
+        }
+
+        private static void Conversion(string[] inString) 
+        {                       
+            Console.WriteLine("Value = " + inString[0]);          
+            PrintValue(int.Parse(inString[0]));
 
             Console.WriteLine("Value = " + inString[1]);
-            bool b = bool.Parse(inString[1]);
-            PrintValue(b);
+            PrintValue(bool.Parse(inString[1]));
 
             Console.WriteLine("Value = " + inString[2]);
             char ch = char.Parse(inString[2]);
@@ -96,9 +102,9 @@ namespace Startup
             PrintValue(db);
 
             Console.WriteLine("Value = " + inString[5]);
-            PrintValue(inString[5]);
+            PrintValue(inString[5]);        
         }
-
+                
         private static void PrintValue(int i)
         {
             Console.WriteLine("Parse Value = " + i);
