@@ -10,16 +10,15 @@ namespace Startup
     {
         public static void Main()
         {
-            Blok1();  //TODO VS: правильно пишется Block - исправь
-            
-            Program2 arg = new Program2(); // TODO VS: см. [1] внизу
-            arg.Blok2();  //TODO VS: правильно пишется Block - исправь
+            Block1();
 
+            Program arg = new Program(); // TODO VS: см. [1] внизу
+            arg.ExecuteBlock2();  
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
 
-        private static void Blok1()
+        private static void Block1()
         {
             int i = 10;
             bool b = true;
@@ -65,10 +64,8 @@ namespace Startup
         {
             Console.WriteLine("Value = " + s);
         }
-    } // TODO VS:  После закрывающей фигурной скобки должна быть пустая строка
-    public class Program2
-    {
-        public void Blok2()
+
+        public void ExecuteBlock2()
         {
             Console.WriteLine("Bloсk 2:");
             string[] inString = new string[6];
@@ -78,10 +75,83 @@ namespace Startup
             inString[3] = "123,45";
             inString[4] = "99,12";
             inString[5] = "end";
-            Conversion(inString); 
+            Convert(inString);
         }
 
-        private static void Conversion(string[] inString) // TODO VS: Conversion это плохое имя, т.к. это существительное. Может лучше Convert?
+        private static void Convert(string[] inString)
+        {
+            Console.WriteLine("Value = " + inString[0]); // TODO VS: см  [2] внизу
+            PrintValue2(int.Parse(inString[0]));
+
+            Console.WriteLine("Value = " + inString[1]); // TODO VS: см  [2] внизу
+            PrintValue2(bool.Parse(inString[1]));
+
+            Console.WriteLine("Value = " + inString[2]); // TODO VS: см  [2] внизу
+            char ch = char.Parse(inString[2]);
+            PrintValue2(ch);
+
+            Console.WriteLine("Value = " + inString[3]); // TODO VS: см  [2] внизу
+            decimal d = decimal.Parse(inString[3]);
+            PrintValue2(d);
+
+            Console.WriteLine("Value = " + inString[4]); // TODO VS: см  [2] внизу
+            double db = double.Parse(inString[4]);
+            PrintValue(db);
+
+            Console.WriteLine("Value = " + inString[5]); // TODO VS: см  [2] внизу
+            PrintValue2(inString[5]);
+        }
+
+        private static void PrintValue2(int i)
+        {
+            Console.WriteLine("Parse Value = " + i); // TODO VS: см  [3] внизу
+        }
+
+        private static void PrintValue2(bool b)
+        {
+            Console.WriteLine("Parse Value = " + b); // TODO VS: см  [3] внизу
+        }
+
+        private static void PrintValue2(char ch)
+        {
+            Console.WriteLine("Parse Value = " + ch); // TODO VS: см  [3] внизу
+        }
+
+        private static void PrintValue2(decimal d)
+        {
+            Console.WriteLine("Parse Value = " + d); // TODO VS: см  [3] внизу
+        }
+
+        private static void PrintValue2(double db)
+        {
+            Console.WriteLine("Parse Value = " + db); // TODO VS: см  [3] внизу
+        }
+
+        private static void PrintValue2(string s)
+        {
+            Console.WriteLine("Parse Value = " + s); // TODO VS: см  [3] внизу
+        }
+    }
+ 
+
+
+
+ /*   public class Block2
+    {
+        public void ExecuteBlock2()
+        {
+            Console.WriteLine("Bloсk 2:");
+            string[] inString = new string[6];
+            inString[0] = "123";
+            inString[1] = "true";
+            inString[2] = "C";
+            inString[3] = "123,45";
+            inString[4] = "99,12";
+            inString[5] = "end";
+            Convert(inString); 
+        }
+
+        private static void Convert(string[] inString) 
         {                       
             Console.WriteLine("Value = " + inString[0]); // TODO VS: см  [2] внизу
             PrintValue(int.Parse(inString[0]));
@@ -134,7 +204,7 @@ namespace Startup
         {
             Console.WriteLine("Parse Value = " + s); // TODO VS: см  [3] внизу
         }
-    }
+    }*/
 }
 
 // TODO VS: [1] Такое разбиение на логические куски уже хорошо, но можно сделать еще лучше. У тебя есть два варианта
