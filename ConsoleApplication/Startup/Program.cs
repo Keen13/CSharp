@@ -10,15 +10,20 @@ namespace Startup
     {
         public static void Main()
         {
-            Block1();
+            Block1 arg1 = new Block1();
+            arg1.ExecuteBlock1();
 
-            Program arg = new Program(); // TODO VS: см. [1] внизу
-            arg.ExecuteBlock2();  
+            Block2 arg = new Block2(); 
+            arg.ExecuteBlock2();
+  
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
+    }
 
-        private static void Block1()
+    public class Block1
+    {
+        public void ExecuteBlock1()
         {
             int i = 10;
             bool b = true;
@@ -32,12 +37,12 @@ namespace Startup
             PrintValue(ch);
             PrintValue(d);
             PrintValue(db);
-            PrintValue(s); 
+            PrintValue(s);
         }
-        
+
         private static void PrintValue(int i)
         {
-            Console.WriteLine("Value = " + i);   
+            Console.WriteLine("Value = " + i);
         }
 
         private static void PrintValue(bool b)
@@ -45,7 +50,7 @@ namespace Startup
             Console.WriteLine("Value = " + b);
         }
 
-        private static void PrintValue(char ch) 
+        private static void PrintValue(char ch)
         {
             Console.WriteLine("Value = " + ch);
         }
@@ -65,81 +70,11 @@ namespace Startup
             Console.WriteLine("Value = " + s);
         }
 
-        public void ExecuteBlock2()
-        {
-            Console.WriteLine("Bloсk 2:");
-            string[] inString = new string[6];
-            inString[0] = "123";
-            inString[1] = "true";
-            inString[2] = "C";
-            inString[3] = "123,45";
-            inString[4] = "99,12";
-            inString[5] = "end";
-            Convert(inString);
-        }
-
-        private static void Convert(string[] inString)
-        {
-            Console.WriteLine("Value = " + inString[0]); // TODO VS: см  [2] внизу
-            PrintValue2(int.Parse(inString[0]));
-
-            Console.WriteLine("Value = " + inString[1]); // TODO VS: см  [2] внизу
-            PrintValue2(bool.Parse(inString[1]));
-
-            Console.WriteLine("Value = " + inString[2]); // TODO VS: см  [2] внизу
-            char ch = char.Parse(inString[2]);
-            PrintValue2(ch);
-
-            Console.WriteLine("Value = " + inString[3]); // TODO VS: см  [2] внизу
-            decimal d = decimal.Parse(inString[3]);
-            PrintValue2(d);
-
-            Console.WriteLine("Value = " + inString[4]); // TODO VS: см  [2] внизу
-            double db = double.Parse(inString[4]);
-            PrintValue(db);
-
-            Console.WriteLine("Value = " + inString[5]); // TODO VS: см  [2] внизу
-            PrintValue2(inString[5]);
-        }
-
-        private static void PrintValue2(int i)
-        {
-            Console.WriteLine("Parse Value = " + i); // TODO VS: см  [3] внизу
-        }
-
-        private static void PrintValue2(bool b)
-        {
-            Console.WriteLine("Parse Value = " + b); // TODO VS: см  [3] внизу
-        }
-
-        private static void PrintValue2(char ch)
-        {
-            Console.WriteLine("Parse Value = " + ch); // TODO VS: см  [3] внизу
-        }
-
-        private static void PrintValue2(decimal d)
-        {
-            Console.WriteLine("Parse Value = " + d); // TODO VS: см  [3] внизу
-        }
-
-        private static void PrintValue2(double db)
-        {
-            Console.WriteLine("Parse Value = " + db); // TODO VS: см  [3] внизу
-        }
-
-        private static void PrintValue2(string s)
-        {
-            Console.WriteLine("Parse Value = " + s); // TODO VS: см  [3] внизу
-        }
-    }
- 
-
-
-
- /*   public class Block2
+    } 
+    public class Block2
     {
         public void ExecuteBlock2()
-        {
+        {       
             Console.WriteLine("Bloсk 2:");
             string[] inString = new string[6];
             inString[0] = "123";
@@ -153,58 +88,73 @@ namespace Startup
 
         private static void Convert(string[] inString) 
         {                       
-            Console.WriteLine("Value = " + inString[0]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[0]); 
             PrintValue(int.Parse(inString[0]));
 
-            Console.WriteLine("Value = " + inString[1]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[1]); 
             PrintValue(bool.Parse(inString[1]));
 
-            Console.WriteLine("Value = " + inString[2]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[2]); 
             char ch = char.Parse(inString[2]);
             PrintValue(ch);
 
-            Console.WriteLine("Value = " + inString[3]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[3]); 
             decimal d = decimal.Parse(inString[3]);
             PrintValue(d);
 
-            Console.WriteLine("Value = " + inString[4]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[4]); 
             double db = double.Parse(inString[4]);
             PrintValue(db);
 
-            Console.WriteLine("Value = " + inString[5]); // TODO VS: см  [2] внизу
+            PrintStringValue(inString[5]); 
             PrintValue(inString[5]);        
+        }
+
+        private static void PrintStringValue(string stringValue)
+        {
+            Console.WriteLine("Value = " + stringValue);
         }
                 
         private static void PrintValue(int i)
         {
-            Console.WriteLine("Parse Value = " + i); // TODO VS: см  [3] внизу
+            string s = i.ToString();
+            PrintStringParseValue(s);
         }
 
         private static void PrintValue(bool b)
         {
-            Console.WriteLine("Parse Value = " + b); // TODO VS: см  [3] внизу
+            string s = b.ToString();
+            PrintStringParseValue(s);
         }
 
         private static void PrintValue(char ch)
         {
-            Console.WriteLine("Parse Value = " + ch); // TODO VS: см  [3] внизу
+            string s = ch.ToString();
+            PrintStringParseValue(s);
         }
 
         private static void PrintValue(decimal d)
         {
-            Console.WriteLine("Parse Value = " + d); // TODO VS: см  [3] внизу
+            string s = d.ToString();
+            PrintStringParseValue(s);
         }
 
         private static void PrintValue(double db)
         {
-            Console.WriteLine("Parse Value = " + db); // TODO VS: см  [3] внизу
+            string s = db.ToString();
+            PrintStringParseValue(s);
         }
 
         private static void PrintValue(string s)
         {
-            Console.WriteLine("Parse Value = " + s); // TODO VS: см  [3] внизу
+            PrintStringParseValue(s);
         }
-    }*/
+        
+        private static void PrintStringParseValue(string stringParse)
+        {
+            Console.WriteLine("Value Parse = " + stringParse);
+        }
+    }
 }
 
 // TODO VS: [1] Такое разбиение на логические куски уже хорошо, но можно сделать еще лучше. У тебя есть два варианта
