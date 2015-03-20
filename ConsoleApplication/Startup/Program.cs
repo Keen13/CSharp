@@ -23,6 +23,8 @@ namespace Startup
 
     public class Block1
     {
+        private const string constStringPrint = "Value = ";
+        
         public void ExecuteBlock1()
         {
             int i = 10;
@@ -42,35 +44,35 @@ namespace Startup
 
         private static void PrintValue(int i)
         {
-            Console.WriteLine("Value = " + i);
+            Console.WriteLine(constStringPrint + i);
         }
 
         private static void PrintValue(bool b)
         {
-            Console.WriteLine("Value = " + b);
+            Console.WriteLine(constStringPrint + b);
         }
 
         private static void PrintValue(char ch)
         {
-            Console.WriteLine("Value = " + ch);
+            Console.WriteLine(constStringPrint + ch);
         }
 
         private static void PrintValue(decimal d)
         {
-            Console.WriteLine("Value = " + d);
+            Console.WriteLine(constStringPrint + d);
         }
 
         private static void PrintValue(double db)
         {
-            Console.WriteLine("Value = " + db);
+            Console.WriteLine(constStringPrint + db);
         }
 
         private static void PrintValue(string s)
         {
-            Console.WriteLine("Value = " + s);
+            Console.WriteLine(constStringPrint + s);
         }
-
-    } // TODO VS:  тут должна быть пустая строка  между закрывающей скобкой и новым классом, а не   так, как ты поставил выше
+    } 
+    
     public class Block2
     {
         public void ExecuteBlock2()
@@ -95,16 +97,13 @@ namespace Startup
             PrintValue(bool.Parse(inString[1]));
 
             PrintStringValue(inString[2]); 
-            char ch = char.Parse(inString[2]);
-            PrintValue(ch);
+            PrintValue(char.Parse(inString[2]));
 
             PrintStringValue(inString[3]); 
-            decimal d = decimal.Parse(inString[3]);
-            PrintValue(d);
+            PrintValue(decimal.Parse(inString[3]));
 
             PrintStringValue(inString[4]); 
-            double db = double.Parse(inString[4]);
-            PrintValue(db);
+            PrintValue(double.Parse(inString[4]));
 
             PrintStringValue(inString[5]); 
             PrintValue(inString[5]);        
@@ -117,32 +116,27 @@ namespace Startup
                 
         private static void PrintValue(int i)
         {
-            string s = i.ToString(); // TODO VS: Можно просто написать PrintStringParseValue(i.ToString()),  т.к. выражение для аргумента метода простое
-            PrintStringParseValue(s);
+           PrintStringParseValue(i.ToString());
         }
 
         private static void PrintValue(bool b)
         {
-            string s = b.ToString();
-            PrintStringParseValue(s);
+            PrintStringParseValue(b.ToString());
         }
 
         private static void PrintValue(char ch)
         {
-            string s = ch.ToString();
-            PrintStringParseValue(s);
+            PrintStringParseValue(ch.ToString());
         }
 
         private static void PrintValue(decimal d)
         {
-            string s = d.ToString();
-            PrintStringParseValue(s);
+            PrintStringParseValue(d.ToString());
         }
 
         private static void PrintValue(double db)
         {
-            string s = db.ToString();
-            PrintStringParseValue(s);
+            PrintStringParseValue(db.ToString());
         }
 
         private static void PrintValue(string s)
