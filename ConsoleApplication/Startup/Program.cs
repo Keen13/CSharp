@@ -23,75 +23,25 @@ namespace Startup
         public void ExecuteBlock2()
         {       
             Console.WriteLine("Bloсk 2:");
-            string[] inString = new string[6];
-            inString[0] = "123";
-            inString[1] = "true";
-            inString[2] = "C";
-            inString[3] = "123,45";
-            inString[4] = "99,12";
-            inString[5] = "end";
-            Convert(inString); 
+            int valueInt = 32;            
+            string stringInt=PrintValue(valueInt);
+            Convert(stringInt);
         }
 
-        private static void Convert(string[] inString) 
-        {                       
-            PrintStringValue(inString[0]); 
-            PrintValue(int.Parse(inString[0]));
-
-            PrintStringValue(inString[1]); 
-            PrintValue(bool.Parse(inString[1]));
-
-            PrintStringValue(inString[2]); 
-            PrintValue(char.Parse(inString[2]));
-
-            PrintStringValue(inString[3]); 
-            PrintValue(decimal.Parse(inString[3]));
-
-            PrintStringValue(inString[4]); 
-            PrintValue(double.Parse(inString[4]));
-
-            PrintStringValue(inString[5]); 
-            PrintValue(inString[5]);        
+        private static string PrintValue(int i)
+        {
+            PrintStringValue(i.ToString());
+            return i.ToString();
         }
 
         private static void PrintStringValue(string stringValue)
         {
             Console.WriteLine("Value = " + stringValue);
         }
-                
-        private static void PrintValue(int i)
-        {
-           PrintStringParseValue(i.ToString());
-        }
 
-        private static void PrintValue(bool b)
+        private static void Convert(string inString) 
         {
-            PrintStringParseValue(b.ToString());
-        }
-
-        private static void PrintValue(char ch)
-        {
-            PrintStringParseValue(ch.ToString());
-        }
-
-        private static void PrintValue(decimal d)
-        {
-            PrintStringParseValue(d.ToString());
-        }
-
-        private static void PrintValue(double db)
-        {
-            PrintStringParseValue(db.ToString());
-        }
-
-        private static void PrintValue(string s)
-        {
-            PrintStringParseValue(s);
-        }
-        
-        private static void PrintStringParseValue(string stringParse)
-        {
-            Console.WriteLine("Value Parse = " + stringParse);
+            PrintValue(int.Parse(inString));        
         }
     }
 }
