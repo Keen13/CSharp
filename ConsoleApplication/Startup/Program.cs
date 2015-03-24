@@ -24,24 +24,23 @@ namespace Startup
         {       
             Console.WriteLine("Bloсk 2:");
             int valueInt = 32;            
-            string stringInt=PrintValue(valueInt);
-            Convert(stringInt);
+            string stringValueInt=PrintValue(valueInt);
+            Convert(stringValueInt);
         }
 
         private static string PrintValue(int i)
         {
-            PrintStringValue(i.ToString());
             return i.ToString();
         }
 
-        private static void PrintStringValue(string stringValue)
+        private static void PrintStringValue(int parseValueItn, string stringValue)
         {
-            Console.WriteLine("Value = " + stringValue);
+            Console.WriteLine(string.Format("Значение определенного типа {0} строка {1}", parseValueItn, stringValue));
         }
 
         private static void Convert(string inString) 
         {
-            PrintValue(int.Parse(inString));        
+            PrintStringValue(int.Parse(inString), inString);        
         }
     }
 }
