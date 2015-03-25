@@ -64,7 +64,8 @@ namespace Startup
 
         private static string ParseToString(int i)
         {
-            return i.ToString();
+            string stringFormatInt = string.Format("{0:000}", i);
+            return stringFormatInt;
         }
         
         private static string ParseToString(string s)
