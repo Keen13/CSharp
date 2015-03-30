@@ -112,7 +112,7 @@ namespace Startup
             
             if (inString.Contains("."))
             {
-                intParse = -1;
+                return -1;
             }
             else
             {
