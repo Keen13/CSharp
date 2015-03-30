@@ -28,18 +28,29 @@ namespace Startup
             var valueChar = 'C';
             var valueDecimal = 150.99m;
             var valueDouble = 444.44;
-            var valueInt = 32;
+            var valueInt1 = 32;
             var valueString = "end!!!";
+            var valueInt2 = 6;
+            var valueInt3 = 140;
             
-            string[] stringValue = new string[6];
+            string[] stringValue = new string[8];
             stringValue[0] = ParseToString(valueBool);
             stringValue[1] = ParseToString(valueChar);
             stringValue[2] = ParseToString(valueDecimal);
             stringValue[3] = ParseToString(valueDouble);
-            stringValue[4] = ParseToString(valueInt);
+            stringValue[4] = ParseToString(valueInt1);
             stringValue[5] = ParseToString(valueString);
+            stringValue[6] = ParseToString(valueInt2);
+            stringValue[7] = ParseToString(valueInt3);
 
-            ParseToValue(stringValue);
+            PrintStringValue(ParseStringToBool(stringValue[0]), stringValue[0]);
+            PrintStringValue(ParseStringToChar(stringValue[1]), stringValue[1]);
+            PrintStringValue(ParseStringToDecimal(stringValue[2]), stringValue[2]);
+            PrintStringValue(ParseStringToDouble(stringValue[3]), stringValue[3]);
+            PrintStringValue(ParseStringToInt(stringValue[4]), stringValue[4]);
+            PrintStringValue(ParseStringToString(stringValue[5]), stringValue[5]);
+            PrintStringValue(ParseStringToInt(stringValue[6]), stringValue[6]);
+            PrintStringValue(ParseStringToInt(stringValue[7]), stringValue[7]);
         }
 
         private static string ParseToString(bool b) 
@@ -73,15 +84,47 @@ namespace Startup
             return s;
         }
 
-        private static void ParseToValue(string[] inString) 
+        private static bool ParseStringToBool(string inString)
         {
-            PrintStringValue(bool.Parse(inString[0]), inString[0]);
-            PrintStringValue(char.Parse(inString[1]), inString[1]);
-            PrintStringValue(decimal.Parse(inString[2]), inString[2]);
-            PrintStringValue(double.Parse(inString[3]), inString[3]);
-            PrintStringValue(int.Parse(inString[4]), inString[4]);
-            PrintStringValue(inString[5], inString[5]);
+            return bool.Parse(inString);
         }
+
+        private static char ParseStringToChar(string inString)
+        {
+            return char.Parse(inString);
+        }
+
+        private static decimal ParseStringToDecimal(string inString)
+        {
+            return decimal.Parse(inString);
+        }
+
+        private static double ParseStringToDouble(string inString)
+        {
+            return double.Parse(inString);
+        }
+
+        private static int ParseStringToInt(string inString)
+        {
+            int intParse = int.Parse(inString);
+
+            if (intParse < 10)
+            {
+                return 10;
+            }
+            if (intParse > 100)
+            {
+                return 100;
+            }
+
+            return intParse;
+
+        }
+
+        private static string ParseStringToString(string inString)
+        {
+            return inString;
+        }         
         
         private static void PrintStringValue(bool parseValue, string stringValue) 
         {
@@ -103,7 +146,7 @@ namespace Startup
         }
         private static void PrintStringValue(int parseValue, string stringValue)
         {
-            Console.WriteLine(string.Format("Значение определенного типа {0} строка {1}", parseValue, stringValue));
+            Console.WriteLine(string.Format("Значение типа int {0} строка {1}", parseValue, stringValue));
         }
         private static void PrintStringValue(string parseValue, string stringValue)
         {
