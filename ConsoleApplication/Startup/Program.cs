@@ -32,6 +32,7 @@ namespace Startup
             var valueString = "end!!!";
             var valueInt2 = 6;
             var valueInt3 = 140;
+            var testString = "4.12";
             
             string[] stringValue = new string[8];
             stringValue[0] = ParseToString(valueBool);
@@ -51,6 +52,7 @@ namespace Startup
             PrintStringValue(ParseStringToString(stringValue[5]), stringValue[5]);
             PrintStringValue(ParseStringToInt(stringValue[6]), stringValue[6]);
             PrintStringValue(ParseStringToInt(stringValue[7]), stringValue[7]);
+            PrintStringValue(ParseStringToInt(testString), testString);
         }
 
         private static string ParseToString(bool b) 
@@ -106,19 +108,28 @@ namespace Startup
 
         private static int ParseStringToInt(string inString)
         {
-            int intParse = int.Parse(inString);
-
+            int intParse;
+            
+            if (inString.Contains("."))
+            {
+                intParse = -1;
+            }
+            else
+            {
+                intParse = int.Parse(inString);
+            }           
+            
             if (intParse < 10)
             {
                 return 10;
             }
+            
             if (intParse > 100)
             {
                 return 100;
             }
 
             return intParse;
-
         }
 
         private static string ParseStringToString(string inString)
