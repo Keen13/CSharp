@@ -10,7 +10,7 @@ namespace Startup
     {
         public static void Main()
         {
-            Block2 arg = new Block2(); 
+            Block2 arg = new Block2(); // TODO VS:  используй var, и дай переменной нормальное имя
             arg.ExecuteBlock2();
   
             Console.WriteLine("Press any key to exit.");
@@ -34,7 +34,7 @@ namespace Startup
             var valueInt3 = 140;
             var testString = "4.12";
             
-            string[] stringValue = new string[5];
+            string[] stringValue = new string[5]; // TODO VS:  используй var 
             stringValue[0] = ParseToString(valueBool);
             stringValue[1] = ParseToString(valueChar);
             stringValue[2] = ParseToString(valueDecimal);
@@ -44,7 +44,7 @@ namespace Startup
             //stringValue[6] = ParseToString(valueInt2);
             //stringValue[7] = ParseToString(valueInt3);
 
-            string[] stringValueInt = new string[4];
+            string[] stringValueInt = new string[4]; // TODO VS: используй var
             stringValueInt[0] = ParseToString(valueInt1);
             stringValueInt[1] = ParseToString(valueInt2);
             stringValueInt[2] = ParseToString(valueInt3);
@@ -85,7 +85,8 @@ namespace Startup
 
         private static string ParseToString(int i)
         {
-            string stringFormatInt = string.Format("{0:000}", i);
+            string stringFormatInt = string.Format("{0:000}", i);  // TODO VS:  разделять такое простое выражение на две строки большого смысла нет
+																   // TODO VS: возвращай сразу  отформатированное значение
             return stringFormatInt;
         }
         
@@ -113,14 +114,19 @@ namespace Startup
         {
             return double.Parse(inString);
         }
-
+		
+		// TODO VS: почему у тебя этот метод отличается от всех остальных? все другие возвращают значение, а этот объединяет в себе и парсинг, и вывод
+		// TODO VS: была какая-то  идея за такой реализацией?
+		// TODO VS: получилось в любом случае не очень, метод берет на себя две отсетственности (плюс не соответствует продолжению задачи). переделай, чтобы 
+		 // TODO VS: он возвращал распарсенное значение.
         private static void ParseStringToInt(string[] inString)
         {
             int intParse;
 
             for (int i = 0; i < inString.Length; i++)
             {
-                if (inString[i].Contains("."))
+                if (inString[i].Contains("."))  // TODO VS: такое решение годится для  одного частного случая. что, если я передам строку  без точки внутри?
+												// TODO VS: найди универсальное решение, оно стандартное
                 {
                     intParse = -1;
                 }
@@ -137,7 +143,7 @@ namespace Startup
                     {
                         intParse = 100;
                     }
-                }
+                }  // TODO VS: после этой скобки должна идти пустая строка, т.к. потом продолжается код
                 PrintStringValue(intParse, inString[i]);
             }
         }
