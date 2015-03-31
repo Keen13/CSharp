@@ -39,28 +39,24 @@ namespace Startup
             stringValue[1] = ParseToString(valueChar);
             stringValue[2] = ParseToString(valueDecimal);
             stringValue[3] = ParseToString(valueDouble);
-            //stringValue[4] = ParseToString(valueInt1);
             stringValue[4] = ParseToString(valueString);
-            //stringValue[6] = ParseToString(valueInt2);
-            //stringValue[7] = ParseToString(valueInt3);
 
             string[] stringValueInt = new string[4]; // TODO VS: используй var
             stringValueInt[0] = ParseToString(valueInt1);
             stringValueInt[1] = ParseToString(valueInt2);
             stringValueInt[2] = ParseToString(valueInt3);
             stringValueInt[3] = testString;
+            string arbitraryString = "-3,5,abc,42,99.99,true,150";
 
-            ParseStringToInt(stringValueInt);
+            PrintStringValue(ParseStringToInt(stringValueInt), stringValueInt);
+
+            PrintStringValue(ParseStringToInt(ParseStringToInt2(arbitraryString)), ParseStringToInt2(arbitraryString));
 
             PrintStringValue(ParseStringToBool(stringValue[0]), stringValue[0]);
             PrintStringValue(ParseStringToChar(stringValue[1]), stringValue[1]);
             PrintStringValue(ParseStringToDecimal(stringValue[2]), stringValue[2]);
             PrintStringValue(ParseStringToDouble(stringValue[3]), stringValue[3]);
-            //PrintStringValue(ParseStringToInt(stringValue[4]), stringValue[4]);
             PrintStringValue(ParseStringToString(stringValue[4]), stringValue[4]);
-            //PrintStringValue(ParseStringToInt(stringValue[6]), stringValue[6]);
-            //PrintStringValue(ParseStringToInt(stringValue[7]), stringValue[7]);
-            //PrintStringValue(ParseStringToInt(testString), testString);
         }
 
         private static string ParseToString(bool b) 
@@ -85,9 +81,7 @@ namespace Startup
 
         private static string ParseToString(int i)
         {
-            string stringFormatInt = string.Format("{0:000}", i);  // TODO VS:  разделять такое простое выражение на две строки большого смысла нет
-																   // TODO VS: возвращай сразу  отформатированное значение
-            return stringFormatInt;
+            return string.Format("{0:000}", i);
         }
         
         private static string ParseToString(string s)
@@ -114,38 +108,41 @@ namespace Startup
         {
             return double.Parse(inString);
         }
-		
-		// TODO VS: почему у тебя этот метод отличается от всех остальных? все другие возвращают значение, а этот объединяет в себе и парсинг, и вывод
-		// TODO VS: была какая-то  идея за такой реализацией?
-		// TODO VS: получилось в любом случае не очень, метод берет на себя две отсетственности (плюс не соответствует продолжению задачи). переделай, чтобы 
-		 // TODO VS: он возвращал распарсенное значение.
-        private static void ParseStringToInt(string[] inString)
-        {
-            int intParse;
 
+        private static string[] ParseStringToInt2(string inString)
+        {
+            char separator = ',';
+            string[] massString = inString.Split(separator);
+            return massString;
+        }
+		
+        private static int[] ParseStringToInt(string[] inString)
+        {
+            int[] intParse = new int[inString.Length];
+            bool result;
             for (int i = 0; i < inString.Length; i++)
             {
-                if (inString[i].Contains("."))  // TODO VS: такое решение годится для  одного частного случая. что, если я передам строку  без точки внутри?
-												// TODO VS: найди универсальное решение, оно стандартное
+                result = int.TryParse(inString[i], out intParse[i]);
+                if (result == false)
                 {
-                    intParse = -1;
+                    intParse[i] = -1;
                 }
+
                 else
                 {
-                    intParse = int.Parse(inString[i]);
-
-                    if (intParse < 10)
+                    if (intParse[i] < 10)
                     {
-                        intParse = 10;
+                        intParse[i] = 10;
                     }
 
-                    if (intParse > 100)
+                    if (intParse[i] > 100)
                     {
-                        intParse = 100;
+                        intParse[i] = 100;
                     }
-                }  // TODO VS: после этой скобки должна идти пустая строка, т.к. потом продолжается код
-                PrintStringValue(intParse, inString[i]);
+                }       
             }
+
+            return intParse;
         }
 
         private static string ParseStringToString(string inString)
@@ -167,19 +164,23 @@ namespace Startup
         {
             Console.WriteLine(string.Format("Значение определенного типа {0} строка {1}", parseValue, stringValue));
         }
+
         private static void PrintStringValue(double parseValue, string stringValue)
         {
             Console.WriteLine(string.Format("Значение определенного типа {0} строка {1}", parseValue, stringValue));
         }
-        private static void PrintStringValue(int parseValue, string stringValue)
+
+        private static void PrintStringValue(int[] parseValue, string[] stringValue)
         {
-            Console.WriteLine(string.Format("Значение типа int {0} строка {1}", parseValue, stringValue));
+            for (int i = 0; i < parseValue.Length; i++)
+            {
+                Console.WriteLine(string.Format("Значение типа int {0} строка {1}", parseValue[i], stringValue[i]));
+            }
         }
+
         private static void PrintStringValue(string parseValue, string stringValue)
         {
             Console.WriteLine(string.Format("Значение определенного типа {0} строка {1}", parseValue, stringValue));
         }
     }
 }
-
- // TODO VS: Общие замечания.  Требовалось сделать перевод в строку и парсинг для всех  типов, использованных в  предыдущей задаче, не только для int.
