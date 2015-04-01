@@ -10,7 +10,11 @@ namespace Startup
     {
         public static void Main()
         {
-            var parseAnysengValue = new Block2(); 
+            var parseAnysengValue = new Block2(); // TODO VS:  did you mean "Anything" ?
+            // TODO VS: если так, то 'anything' означает "что угодно", 'any' означает "любой, какой угодно,
+            // TODO VS: вероятно, название parseAnyValue подойдет лучше по смыслу - "парситьЛюбоеЗначение"
+            // TODO VS: но оно  тоже звучит не очень, т.к.  это название переменной,  оно должно быть  выражено существительным
+            // TODO VS: как насчет anyValueParser? ("парсерЛюбыхЗначений")
             parseAnysengValue.ExecuteBlock2();
   
             Console.WriteLine("Press any key to exit.");
@@ -47,7 +51,7 @@ namespace Startup
             stringValueInt[1] = ParseToString(valueInt2);
             stringValueInt[2] = ParseToString(valueInt3);
             stringValueInt[3] = testString;
-            string[] splitArguments = SplitArguments(arbitraryString);
+            string[] splitArguments = SplitArguments(arbitraryString); //TODO VS: use 'var'
 
             PrintStringValue(ParseStringToInt(stringValueInt), stringValueInt);
             PrintStringValue(ParseStringToInt(splitArguments), splitArguments);
@@ -116,16 +120,19 @@ namespace Startup
             return massString;
         }
 
-        private static int ParseOneValueInt(string inString)
+        private static int ParseOneValueInt(string inString) //TODO VS: методы ParseOneValueInt и ParseStringToInt должны идти в другом порядке.
+        // TODO VS: код читается сверху вниз
         {
             int intParse;
-            bool result;
-            result = int.TryParse(inString, out intParse);
+            bool result; //TODO VS: Нет никаких причин разделять тут объявление переменой и присвоение. как минимум их надо объединить
+            result = int.TryParse(inString, out intParse); 
+            //TODO VS: еще лучше будет написать  if (int.TryParse(inString, out intParse)) , это стандартная запись. переменная result вообще не нужна
             if (result)
             {
                 if (intParse < 10)
                 {
-                    intParse = 10;
+                    intParse = 10; //TODO VS: код написан  корректно, но на самом деле тебе нет необходимости присваивать значение переменной, ты ведь
+                    //TODO VS:  с этой переменной потом ничего не делаешь, кроме возврата.  используй return сразу там, где становится ясно, что вернуть.
                 }
 
                 if (intParse > 100)
@@ -139,13 +146,14 @@ namespace Startup
             }
 
             return intParse;
-        }
+        } //TODO VS: обрати внимание, что в этом методе у тебя присутствует кусок логики, являющейся  самостоятельной функциональностью. 
+          //TODO VS: вынеси его в отдельный метод, если понятно, что выносить [принцип единственной ответственности]
        
         private static int[] ParseStringToInt(string[] inString)
         {
             var intParse = new int[inString.Length];
-           
-            for (int i = 0; i < inString.Length; i++)
+
+            for (int i = 0; i < inString.Length; i++) //TODO VS: for (var i = 0; i < inString.Length; i++) - так var тоже используется, практически всегда
             {
                 intParse[i] = ParseOneValueInt(inString[i]); 
             }
