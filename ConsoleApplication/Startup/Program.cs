@@ -41,7 +41,6 @@ namespace Startup
             stringValue[3] = ParseToString(valueDouble);
             stringValue[4] = ParseToString(valueString);
 
-            //var arbitraryString = "-3,5,abc,42,99.99,true,150"; 
             var arbitraryString = ReadString();
             var stringValueInt = new string[4]; 
             stringValueInt[0] = ParseToString(valueInt1);
@@ -64,7 +63,6 @@ namespace Startup
         {
             Console.WriteLine("Ввидите строку для парсинга в тип Int, значения разделяйте ','");
             return Console.ReadLine();
-        //TODO VS: лишняя пустая строка
         }
 
         private static string ParseToString(bool b) 
@@ -119,8 +117,8 @@ namespace Startup
 
         private static string[] SplitArguments(string inString) 
         {
-            const char separator = ','; //TODO VS: [CG] Имена констант начинаются с большой буквы (не путать с переменными)
-            var massString = inString.Split(separator); 
+            const char Separator = ','; 
+            var massString = inString.Split(Separator); 
             return massString;
         }
         
@@ -140,39 +138,29 @@ namespace Startup
         {
             int intParse;
 
-            if (Utils.TryParseIntStrict(inString, out intParse)) // NB! Не изменять эту строку.
+            if (Utils.TryParseIntStrict(inString.Trim(), out intParse)) // NB! Не изменять эту строку.
             {
-                return ComparisonInt(intParse);
+                return AdjustInt(intParse);
             }
-            else //TODO VS: Сделано хорошо, но  обрати внимание, что блок  после if завершает  исполнение всего метода, если в него 
-                 //TODO VS: попало управление. 'else' в такой  ситуации становится излишним - он и так исполнится только в том случае, 
-                 //TODO VS: если не исполнился первый блок.  убери ненужный 'else' и ставшие после этого ненужными скобки
-                //TODO VS: и не забудь про пустую строку =)
-            {
-                return -1;
-            }            
+
+            return -1;
         }
 
-        private static int ComparisonInt(int intParse) //TODO VS: Имена методов это глаголы, т.к. метод это действие. у тебя получилось
-        //TODO VS: "СравнениеИнт". Вероятно ты хотел "CompareInt" ("СравнитьИнт"), но  это имя будет неверным -  ведь метод не просто 
-        //TODO VS: сравнивает значение (сравнение подразумевает ответ в стиле "да-нет", "больше-меньше-равно"), а изменяет его,
-        //TODO VS: подгоняя под заданные рамки. Я бы использовал в имени слово "Adjust" (AdjustValue, AdjustInt или как еще придумаешь...)
+        private static int AdjustInt(int intParse) 
         {
-            if (intParse < 10)  //TODO VS: неплохо, но можно лучше. что означают эти загадочные числа "10" и "100" в логике метода?
-            //TODO VS: в программировании это называется магическими числами, и это плохая практика програмирования, т.к.
-            //TODO VS: смысл кода неясен, и при изменени легко пропустить такое число.  и опять же - представь, что  у тебя большой 
-            //TODO VS: проект, с которым работаешь не ты один - насколько был бы понятен этот код тебе, если бы его написал кто-то другой?
-            //TODO VS: см. https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5_%D1%87%D0%B8%D1%81%D0%BB%D0%BE_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
-            //TODO VS: хорошее решение - вынести магические числа в хорошо именованные константы. назови их "MinValue" и "MaxValue"
-            //TODO VS:  и посмотри, насколько понятнее станет код. особенно, если избавиться от дублирования этих чисел.
+            const int MinValue = 10;
+            const int MaxValue = 100;
+
+            if (intParse < MinValue)  
             {
-                return 10; 
+                return MinValue; 
             }
 
-            if (intParse > 100)
+            if (intParse > MaxValue)
             {
-                return 100;
-            } //TODO VS: добавь пустую строку
+                return MaxValue;
+            } 
+
             return intParse;
         }
 
@@ -203,10 +191,10 @@ namespace Startup
 
         private static void PrintStringValue(int[] parseValue, string[] stringValue) 
         {
-            const string separator = ","; //TODO VS: [CG] Имена констант начинаются с большой буквы (не путать с переменными)
+            const string Separator = ","; 
 
-            var stringWriteInt = string.Join(separator, parseValue);
-            var stringWriteStr = string.Join(separator, stringValue);
+            var stringWriteInt = string.Join(Separator, parseValue);
+            var stringWriteStr = string.Join(Separator, stringValue);
             Console.WriteLine(string.Format("Значение типа int {0} строка {1}", stringWriteInt, stringWriteStr));
         }
 
