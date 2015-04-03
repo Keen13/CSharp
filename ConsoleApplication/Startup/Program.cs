@@ -137,8 +137,18 @@ namespace Startup
         private static int ParseOneValueInt(string inString) 
         {
             int intParse;
+            string inStringTrim = string.Empty;
 
-            if (Utils.TryParseIntStrict(inString.Trim(), out intParse)) // NB! Не изменять эту строку.
+            if (inString.Contains(" "))
+            {
+                return -1;
+            }
+            else
+            {
+                inStringTrim = inString.Trim();
+            }
+            
+            if (Utils.TryParseIntStrict(inStringTrim, out intParse)) // NB! Не изменять эту строку.
             {
                 return AdjustInt(intParse);
             }
