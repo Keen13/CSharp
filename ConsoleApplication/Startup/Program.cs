@@ -137,13 +137,84 @@ namespace Startup
         private static int ParseOneValueInt(string inString) 
         {
             int intParse;
+            int findNumberSpase = FindNumberSpase(inString);
 
-            if (Utils.TryParseIntStrict(inString, out intParse)) // NB! Не изменять эту строку.
+            if (findNumberSpase == 0)
             {
-                return AdjustInt(intParse);
+                if (Utils.TryParseIntStrict(inString, out intParse)) // NB! Не изменять эту строку.
+                {
+                    return AdjustInt(intParse);
+                }
+            }
+            else
+            {
+                if (Utils.TryParseIntStrict(KillSpase(inString), out intParse)) // NB! Не изменять эту строку.
+                {
+                    return AdjustInt(intParse);
+                }
+            }
+                        
+            return -1;                      
+        }
+
+        private static int FindNumberSpase(string inString)
+        {
+            int i = 0;
+            int numberIndex = -1;
+            int amountSumbol = -1;
+            string findSymbol = " ";
+            
+            while (i != -1)
+            {
+                i = inString.IndexOf(findSymbol, numberIndex + 1);
+                numberIndex = i;
+                amountSumbol++; 
+            }
+            
+            return amountSumbol;             
+        }
+
+        private static string KillSpase(string inString)
+        {
+            const int stringConst = 1;
+            char findSymbol = ' ';
+            int i = inString.Length;
+            int endStringIndex = inString.Length - stringConst;
+            int startStringIndex = 0;
+            bool flag = true;
+
+            while (i != 0 )
+            {
+                i--;
+                if (inString[i] == findSymbol && flag)
+                {
+                    endStringIndex = i - 1;
+                }
+                else
+                {
+                    flag = false;
+                    i = 0;
+                }
+            }
+            
+            i=0;
+            flag = true;
+            
+            while (i != inString.Length)
+            {
+                if (inString[i] == findSymbol && flag)
+                {
+                    startStringIndex = i + 1;
+                    i++;
+                }
+                else
+                {
+                    flag = false;
+                    i++;
+                }                
             }
 
-              return -1;                      
+            return inString.Substring(startStringIndex, endStringIndex - startStringIndex + stringConst);
         }
 
         private static int AdjustInt(int intParse) 
