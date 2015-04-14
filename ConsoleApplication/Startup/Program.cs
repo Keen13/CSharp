@@ -25,25 +25,93 @@ namespace Startup
             Console.WriteLine("Bloсk 2:");
 
             var arbitraryString = ReadString();
-            var splitArguments = SplitArguments(arbitraryString); 
-
-            PrintStringValue(ParseStringToInt(splitArguments), splitArguments);
-
+            Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
         }
 
         private static string ReadString()
         {
-            Console.WriteLine("Ввидите строку для парсинга в тип Int, значения разделяйте ','");
+            Console.WriteLine("Ввидите арифметический пример произвольной длины на сложение и вычитание целых чисел :");
             return Console.ReadLine();
         }
 
+        private static int Sum(string inString)
+        {
+            var massInt = ParseStringToInt(SplitArguments(inString));
+            var massSing = MassSing(inString);
+            const char findSymbol1 = '-';
+            const char findSymbol2 = '+';
+            var sum = massInt[0];
+            var numberSing = 0;
+            
+
+            for (int i = 1; i < massInt.Length; i++)
+            {
+                if (massSing[numberSing] == findSymbol2)
+                {
+                    sum = sum + massInt[i];
+                    numberSing++;
+                }
+
+                if (massSing[numberSing] == findSymbol1)
+                {
+                    sum = sum - massInt[i];
+                    numberSing++;
+                }
+            }
+
+            return sum;
+        }
+        
         private static string[] SplitArguments(string inString) 
         {
             char[] Separator = new char[] {'-', '+'}; 
             var massString = inString.Split(Separator); 
             return massString;
         }
-        
+
+        private static char[] MassSing(string inString)
+        {
+            const char findSymbol1 = '-';
+            const char findSymbol2 = '+';
+            var numderSing = FindNumberSingPlusOne(inString);
+            var massSing = new char[numderSing];
+            var massSingNumber = 0;
+            
+            for (int i = 0; i < inString.Length; i++)
+            {
+                if (inString[i] == findSymbol1)
+                {
+                    massSing[massSingNumber] = findSymbol1;
+                    massSingNumber = massSingNumber + 1;
+                }
+
+                if (inString[i] == findSymbol2)
+                {
+                    massSing[massSingNumber] = findSymbol2;
+                    massSingNumber = massSingNumber + 1;
+                }
+            }
+
+            return massSing;
+        }
+
+        private static int FindNumberSingPlusOne(string inString)  //не нашел ничего уменее как свести массивы к одной длинне таким вот способом.
+        {
+            int i = 0;
+            int numberIndex = -1;
+            int amountSymbol = 0;
+            var findSymbols = new char[] {'+', '-'};
+
+            while (i != -1)
+            {
+                i = inString.IndexOfAny(findSymbols, numberIndex + 1);
+                numberIndex = i;
+                amountSymbol++;
+            }
+
+            return amountSymbol;
+        }
+
         private static int[] ParseStringToInt(string[] inString)
         {
             var intParse = new int[inString.Length];
@@ -86,15 +154,5 @@ namespace Startup
 
             return intParse;
         }
-
-        private static void PrintStringValue(int[] parseValue, string[] stringValue) 
-        {
-            const string Separator = ","; 
-
-            var stringWriteInt = string.Join(Separator, parseValue);
-            var stringWriteStr = string.Join(Separator, stringValue);
-            Console.WriteLine(string.Format("Значение типа int {0} строка {1}", stringWriteInt, stringWriteStr));
-        }
-
     }
 }
