@@ -10,27 +10,46 @@ namespace Startup
     {
         public static void Main()
         {
-            var anyValueParser = new Block2(); 
-            anyValueParser.ExecuteBlock2();
+            var anyExpression = new Сalculator();
+            anyExpression.ExecuteСalculator();
   
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
     }
-    
-    public class Block2
-    {
-        public void ExecuteBlock2()
-        {       
-            Console.WriteLine("Bloсk 2:");
 
-            var arbitraryString = ReadString();
-            Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
+    public class Сalculator
+    {
+        public void ExecuteСalculator()
+        {       
+            Run();
         }
 
+        private static void Run()
+        {
+            const string escString = "end";
+            char[] trimSymbol = { ' ', '.', '!' };
+            var arbitraryString = string.Empty;
+            var esc = string.Empty;
+
+            while (esc != escString)
+            {
+                arbitraryString = ReadString();
+                esc = arbitraryString.Trim(trimSymbol);
+                if (esc == escString)
+                {
+                    Console.WriteLine("Спасибо что воспользовались этой программой.");
+                }
+                else
+                {
+                    Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
+                }
+            }
+        }
+        
         private static string ReadString()
         {
-            Console.WriteLine("Ввидите арифметический пример произвольной длины на сложение и вычитание целых чисел :");
+            Console.WriteLine("Ввидите арифметический пример произвольной длины на сложение и вычитание \nцелых чисел или end для выхода :");
             return Console.ReadLine();
         }
 
