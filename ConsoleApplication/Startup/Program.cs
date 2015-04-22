@@ -28,7 +28,7 @@ namespace Startup
 
         private static void Run()
         {
-            const string escString = "end"; // TODO VS:  1) [CG 2] 
+            const string escapeString = "end"; // TODO VS:  1) [CG 2] 
 											// TODO VS: 2) не сокращ. названия - код читается на порядок чаще, чем пишется. "escapeString"
 											// TODO VS: 3) эта константа должна быть на уровне класса
             char[] trimSymbol = { ' ', '.', '!' }; // TODO VS: 1 )Почему такой странный набор символов? Если у него есть смысл, вырази его в имени
@@ -39,11 +39,11 @@ namespace Startup
             var arbitraryString = string.Empty;
             var esc = string.Empty; // TODO VS: непонятно, что должно значить это имя. но скорее всего тебе эта переменная и не нужна
 
-            while (esc != escString) // TODO VS: обрати внимание - здесь и тремя строками ниже ты  делаешь одно и то же сравнение.  зачем?
+            while (esc != escapeString) // TODO VS: обрати внимание - здесь и тремя строками ниже ты  делаешь одно и то же сравнение.  зачем?
             {
                 arbitraryString = ReadString();
                 esc = arbitraryString.Trim(trimSymbol);
-                if (esc == escString)
+                if (esc == escapeString)
                 {
                     Console.WriteLine("Спасибо что воспользовались этой программой.");
                 }
@@ -63,18 +63,17 @@ namespace Startup
         private static int Sum(string inString)
         {
             var massInt = ParseStringToInt(SplitArguments(inString));
-            var massSing = MassSing(inString); // TODO VS: ты хотел написать "Sign" (знак)? Если да, исправь по всему коду. Если нет, то что это имя значит?
+            var massSign = MassSign(inString); // TODO VS: ты хотел написать "Sign" (знак)? Если да, исправь по всему коду. Если нет, то что это имя значит?
             const char findSymbol1 = '-'; // TODO VS:  1) [CG 2] 2) плохое название, не отражает смысл. почему не plusSymbol например? 
 										// TODO VS:  3) у тебя этот символ повторяется 4 раза в разных методах.  что , если завтра  скажут, что вычитание
 										// TODO VS: для этих примеров должно записываться  другим знаком - будешь искать и менять все 4 места?
             const char findSymbol2 = '+'; // TODO VS:  1) все те же замечание, что на  предудыщей строке
             var sum = massInt[0];
-            var numberSing = 0;
+            var numberSign = 0;
             
-// TODO VS: две пустые строки подряд недопустимы [Coding Guidelines]
-            for (int i = 1; i < massInt.Length; i++) // TODO VS: use 'var'
+            for (var i = 1; i < massInt.Length; i++) 
             {
-                if (massSing[numberSing] == findSymbol2) // TODO VS: ты два раза проверяешь на равенство одну и ту же переменную с разными значениями
+                if (massSign[numberSign] == findSymbol2) // TODO VS: ты два раза проверяешь на равенство одну и ту же переменную с разными значениями
 														// TODO VS: во-первых, в таком коде у тебя всегда будут выполнены оба сравнения,
 														// TODO VS: в отличие от конструкции  if ... else if ...
 														// TODO VS: во-вторых, тут можно воспользоваться оператором switch(...)
@@ -82,13 +81,13 @@ namespace Startup
 														// TODO VS: потом выберешь  один из них
                 {
                     sum = sum + massInt[i];
-                    numberSing++; // TODO VS: тебе нафига эта переменная? она всегда равна 'i'
+                    numberSign++; // TODO VS: тебе нафига эта переменная? она всегда равна 'i'
                 }
 
-                if (massSing[numberSing] == findSymbol1)
+                if (massSign[numberSign] == findSymbol1)
                 {
                     sum = sum - massInt[i];
-                    numberSing++;
+                    numberSign++;
                 }
             }
 
@@ -97,46 +96,46 @@ namespace Startup
         
         private static string[] SplitArguments(string inString) 
         {
-            char[] Separator = new char[] {'-', '+'}; // TODO VS: 1) это не константа, почему имя с большой буквы? 2) пробелы вокруг фигурных скобок неправильно стоят.
+            char[] separator = { '-', '+' }; // TODO VS: 1) это не константа, почему имя с большой буквы? 2) пробелы вокруг фигурных скобок неправильно стоят.
 													// TODO VS: посмотри строку 34, там у тебя все верно. 3) явно создавать новый массив через "new char[]" не требуется
 													// TODO VS: опять же смотри строку 34, как сделано там. почему в двух местах разные подходы?
-            var massString = inString.Split(Separator); 
+            var massString = inString.Split(separator); 
             return massString;
         }
 
-        private static char[] MassSing(string inString)
+        private static char[] MassSign(string inString)
         {
             const char findSymbol1 = '-';
             const char findSymbol2 = '+';
-            var numderSing = FindNumberSingPlusOne(inString);
-            var massSing = new char[numderSing];
-            var massSingNumber = 0;
+            var numderSign = FindNumberSignPlusOne(inString);
+            var massSign = new char[numderSign];
+            var massSignNumber = 0;
             
-            for (int i = 0; i < inString.Length; i++) // TODO VS: use 'var'
+            for (var i = 0; i < inString.Length; i++) 
             {
                 if (inString[i] == findSymbol1)
                 {
-                    massSing[massSingNumber] = findSymbol1;
-                    massSingNumber = massSingNumber + 1;
+                    massSign[massSignNumber] = findSymbol1;
+                    massSignNumber = massSignNumber + 1;
                 }
 
                 if (inString[i] == findSymbol2)
                 {
-                    massSing[massSingNumber] = findSymbol2;
-                    massSingNumber = massSingNumber + 1;
+                    massSign[massSignNumber] = findSymbol2;
+                    massSignNumber = massSignNumber + 1;
                 }
             }
 
-            return massSing;
+            return massSign;
         }
 
-        private static int FindNumberSingPlusOne(string inString)  //не нашел ничего уменее как свести массивы к одной длинне таким вот способом.
+        private static int FindNumberSignPlusOne(string inString)  //не нашел ничего уменее как свести массивы к одной длинне таким вот способом.
 		// VS: ну тоже подход, нашел ведь его.  доведи до ума, потом будет тебе другая идея.
         {
-            int i = 0; // TODO VS: use 'var'
-            int numberIndex = -1; // TODO VS: use 'var'
-            int amountSymbol = 0; // TODO VS: use 'var'
-            var findSymbols = new char[] {'+', '-'};
+            var i = 0; 
+            var numberIndex = -1; 
+            var amountSymbol = 0; 
+            var findSymbols = new char[] { '+', '-' };
 
             while (i != -1)
             {
@@ -163,7 +162,7 @@ namespace Startup
         private static int ParseOneValueInt(string inString)
         {
             int intParse;
-            int BaseValue = 0; // TODO VS: const
+            const int BaseValue = 0;
 
             if (int.TryParse(inString, out intParse)) 
             {
