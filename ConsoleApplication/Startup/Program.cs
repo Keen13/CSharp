@@ -1,10 +1,5 @@
 ﻿using System;
-// VS: неиспользуемый код выделен бледным цветом. при наведении мышью на строку показывается, что не так. удалить все неиспользуемые директивы
-// VS: можно одиним действием - встать на любую из них, выбрать на значке слева предлагаемую опцию и нажать на нее.
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Startup  
 {
@@ -12,9 +7,8 @@ namespace Startup
     {
         public static void Main()
         {
-            var anyExpression = new Сalculator(); // TODO VS:  и почему объект типа "калькулятор" у тебя называется "любоеВыражение"?
-                                                // TODO VS: как это описывает его смысл?
-            anyExpression.ExecuteСalculator();
+            var expression = new Сalculator(); 
+            expression.ExecuteСalculator();
   
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
@@ -26,40 +20,36 @@ namespace Startup
     // VS: если встать на имя класса, то будет предложена в том числе опция исправления кода (пирамидка)
     public class Сalculator // TODO VS: [CG 1]
     {
+        private const char PlusSymbol = '+';
+        private const char MinusSymbol = '-';
+
         public void ExecuteСalculator()
         {       
             Run();
         }
 
-        // VS: Нарушение правила. Аналогично, чтобы получить опцию  испраления кода, надо встать на имя переменной
         private static void Run()
         {
-            const string escapeString = "end"; // TODO VS:  1) [CG 2] 
-                                            // TODO VS: 2) не сокращ. названия - код читается на порядок чаще, чем пишется. "escapeString"
+            const string EscapeString = "end"; // TODO VS:  1) [CG 2] 
                                             // TODO VS: 3) эта константа должна быть на уровне класса
             char[] trimSymbol = { ' ', '.', '!' }; // TODO VS: 1 )Почему такой странный набор символов? Если у него есть смысл, вырази его в имени
                                                     // TODO VS: 2) Это набор, значит  имя должно быть во множественном числе  - trimSymbols
                                                     // TODO VS: 3) По смыслу этот набор опять же принадлежит уровню класса
                                                     // TODO VS: 4) по сути  это константа, но  объявить такую константу ты не можешь, 
                                                     // TODO VS: зато можешь  использовать модификатор readonly
-            // VS: Нарушение правил. Заметь, если ты его исправишь, то новая строка будет подчеркнута зеленым, это будет предложение
-            // VS: по улучшению кода.
-            var arbitraryString = string.Empty; 
             var esc = string.Empty; // TODO VS: непонятно, что должно значить это имя. но скорее всего тебе эта переменная и не нужна
 
-            while (esc != escapeString) // TODO VS: обрати внимание - здесь и тремя строками ниже ты  делаешь одно и то же сравнение.  зачем?
+            while (esc != EscapeString) // TODO VS: обрати внимание - здесь и тремя строками ниже ты  делаешь одно и то же сравнение.  зачем?
             {
-                arbitraryString = ReadString();
+                var arbitraryString = ReadString();
                 esc = arbitraryString.Trim(trimSymbol);
-                if (esc == escapeString)
-                {
-                    Console.WriteLine("Спасибо что воспользовались этой программой.");
-                }
-                else
+                if (esc != EscapeString)
                 {
                     Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
                 }
             }
+
+            Console.WriteLine("Спасибо что воспользовались этой программой.");
         }
         
         private static string ReadString() // VS: это хорошая изоляция функциональности в одном методе
@@ -71,19 +61,14 @@ namespace Startup
         private static int Sum(string inString)
         {
             var massInt = ParseStringToInt(SplitArguments(inString));
-            var massSign = MassSign(inString); // TODO VS: ты хотел написать "Sign" (знак)? Если да, исправь по всему коду. Если нет, то что это имя значит?
-            // VS: Нарушение правил. 
-            const char findSymbol1 = '-'; // TODO VS:  1) [CG 2] 2) плохое название, не отражает смысл. почему не plusSymbol например? 
-                                        // TODO VS:  3) у тебя этот символ повторяется 4 раза в разных методах.  что , если завтра  скажут, что вычитание
-                                        // TODO VS: для этих примеров должно записываться  другим знаком - будешь искать и менять все 4 места?
-            // VS: Нарушение правил. 
-            const char findSymbol2 = '+'; // TODO VS:  1) все те же замечание, что на  предудыщей строке
+            var massSign = MassSign(inString); 
+  
             var sum = massInt[0];
             var numberSign = 0;
             
             for (var i = 1; i < massInt.Length; i++) 
             {
-                if (massSign[numberSign] == findSymbol2) // TODO VS: ты два раза проверяешь на равенство одну и ту же переменную с разными значениями
+                if (massSign[numberSign] == PlusSymbol) // TODO VS: ты два раза проверяешь на равенство одну и ту же переменную с разными значениями
                                                         // TODO VS: во-первых, в таком коде у тебя всегда будут выполнены оба сравнения,
                                                         // TODO VS: в отличие от конструкции  if ... else if ...
                                                         // TODO VS: во-вторых, тут можно воспользоваться оператором switch(...)
@@ -96,7 +81,7 @@ namespace Startup
 
                 // VS: Предложение по улучшению кода. Впрочем, не стоит спешить следовать ему а) это такой типичный случай, про который  надо тебе рассказать
                 // VS: б) после того, как ты исправишь код по моим замечаниям, этот кусок все равно изменится.
-                if (massSign[numberSign] == findSymbol1)
+                if (massSign[numberSign] == MinusSymbol)
                 {
                     sum = sum - massInt[i];
                     numberSign++;
@@ -114,37 +99,37 @@ namespace Startup
             var massString = inString.Split(separator); 
             return massString;
         }
-
+        
         private static char[] MassSign(string inString)
         {
             // VS: Нарушение правил.
-            const char findSymbol1 = '-';
+            const char FindSymbol1 = '-';
             // VS: Нарушение правил.
-            const char findSymbol2 = '+';
-            var numderSign = FindNumberSignPlusOne(inString);
-            var massSign = new char[numderSign];
+            const char FindSymbol2 = '+';
+            var numberSign = FindNumberSignPlusOne(inString);
+            var massSign = new char[numberSign];
             var massSignNumber = 0;
 
             // VS: Предложение по улучшению
             for (var i = 0; i < inString.Length; i++) 
             {
-                if (inString[i] == findSymbol1)
+                if (inString[i] == FindSymbol1)
                 {
-                    massSign[massSignNumber] = findSymbol1;
+                    massSign[massSignNumber] = FindSymbol1;
                     massSignNumber = massSignNumber + 1;
                 }
 
                 // VS: Предложение по улучшению (и опять тот самый типичный случай)
-                if (inString[i] == findSymbol2)
+                if (inString[i] == FindSymbol2)
                 {
-                    massSign[massSignNumber] = findSymbol2;
+                    massSign[massSignNumber] = FindSymbol2;
                     massSignNumber = massSignNumber + 1;
                 }
             }
 
             return massSign;
         }
-
+        
         private static int FindNumberSignPlusOne(string inString)  //не нашел ничего уменее как свести массивы к одной длинне таким вот способом.
         // VS: ну тоже подход, нашел ведь его.  доведи до ума, потом будет тебе другая идея.
         {
@@ -152,7 +137,7 @@ namespace Startup
             var numberIndex = -1; 
             var amountSymbol = 0;
             // VS: излиишний код. выделен бледным
-            var findSymbols = new char[] { '+', '-' }; 
+            var findSymbols = new[] { '+', '-' }; 
 
             while (i != -1)
             {
@@ -164,12 +149,11 @@ namespace Startup
             return amountSymbol;
         }
 
-        // VS: Предложение по улучшению
-        private static int[] ParseStringToInt(string[] inString)
+        private static int[] ParseStringToInt(IList<string> inString)
         {
-            var intParse = new int[inString.Length];
+            var intParse = new int[inString.Count];
 
-            for (var i = 0; i < inString.Length; i++) 
+            for (var i = 0; i < inString.Count; i++) 
             {
                 intParse[i] = ParseOneValueInt(inString[i]); 
             }
@@ -182,13 +166,7 @@ namespace Startup
             int intParse;
             const int BaseValue = 0;
 
-            // VS: Предложение по улучшению (тоже желательно сначала разробрать вместе)
-            if (int.TryParse(inString, out intParse)) 
-            {
-                return AdjustInt(intParse);
-            }
-
-            return BaseValue;
+            return int.TryParse(inString, out intParse) ? AdjustInt(intParse) : BaseValue;
         }
 
         private static int AdjustInt(int intParse) 
