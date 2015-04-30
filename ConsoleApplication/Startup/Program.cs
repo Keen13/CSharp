@@ -15,13 +15,11 @@ namespace Startup
         }
     }
 
-    // VS: Нарушение правила, подчеркнуто синим. при наведении мышью на строку показывается, какое правило нарушеною Заметь - подчеркнута вся строка,
-    // VS: но здесь у тебя есть несколько опций - если ты встанешь просто на строку, то тебе будут доступны только опции  управление этим правилом.
-    // VS: если встать на имя класса, то будет предложена в том числе опция исправления кода (пирамидка)
     public class Сalculator // TODO VS: [CG 1]
     {
         private const char PlusSymbol = '+';
         private const char MinusSymbol = '-';
+        private const string EscapeString = "end";
 
         public void ExecuteСalculator()
         {       
@@ -30,9 +28,7 @@ namespace Startup
 
         private static void Run()
         {
-            const string EscapeString = "end"; // TODO VS:  1) [CG 2] 
-                                            // TODO VS: 3) эта константа должна быть на уровне класса
-            char[] trimSymbol = { ' ', '.', '!' }; // TODO VS: 1 )Почему такой странный набор символов? Если у него есть смысл, вырази его в имени
+            char[] floodSymbol = { ' ', '.', '!' }; // TODO VS: 1 )Почему такой странный набор символов? Если у него есть смысл, вырази его в имени
                                                     // TODO VS: 2) Это набор, значит  имя должно быть во множественном числе  - trimSymbols
                                                     // TODO VS: 3) По смыслу этот набор опять же принадлежит уровню класса
                                                     // TODO VS: 4) по сути  это константа, но  объявить такую константу ты не можешь, 
@@ -42,7 +38,7 @@ namespace Startup
             while (esc != EscapeString) // TODO VS: обрати внимание - здесь и тремя строками ниже ты  делаешь одно и то же сравнение.  зачем?
             {
                 var arbitraryString = ReadString();
-                esc = arbitraryString.Trim(trimSymbol);
+                esc = arbitraryString.Trim(floodSymbol);
                 if (esc != EscapeString)
                 {
                     Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
@@ -52,7 +48,7 @@ namespace Startup
             Console.WriteLine("Спасибо что воспользовались этой программой.");
         }
         
-        private static string ReadString() // VS: это хорошая изоляция функциональности в одном методе
+        private static string ReadString() 
         {
             Console.WriteLine("Ввидите арифметический пример произвольной длины на сложение и вычитание \nцелых чисел или end для выхода :");
             return Console.ReadLine();
@@ -64,27 +60,17 @@ namespace Startup
             var massSign = MassSign(inString); 
   
             var sum = massInt[0];
-            var numberSign = 0;
             
-            for (var i = 1; i < massInt.Length; i++) 
+            for (var i = 0; i < massInt.Length; i++) 
             {
-                if (massSign[numberSign] == PlusSymbol) // TODO VS: ты два раза проверяешь на равенство одну и ту же переменную с разными значениями
-                                                        // TODO VS: во-первых, в таком коде у тебя всегда будут выполнены оба сравнения,
-                                                        // TODO VS: в отличие от конструкции  if ... else if ...
-                                                        // TODO VS: во-вторых, тут можно воспользоваться оператором switch(...)
-                                                        // TODO VS: напиши оба варианта  кода для этого блока,  покажешь в скайп, что получилось,
-                                                        // TODO VS: потом выберешь  один из них
+                switch (massSign[i])
                 {
-                    sum = sum + massInt[i];
-                    numberSign++; // TODO VS: тебе нафига эта переменная? она всегда равна 'i'
-                }
-
-                // VS: Предложение по улучшению кода. Впрочем, не стоит спешить следовать ему а) это такой типичный случай, про который  надо тебе рассказать
-                // VS: б) после того, как ты исправишь код по моим замечаниям, этот кусок все равно изменится.
-                if (massSign[numberSign] == MinusSymbol)
-                {
-                    sum = sum - massInt[i];
-                    numberSign++;
+                    case PlusSymbol:
+                        sum = sum + massInt[i + 1];
+                        break;
+                    case MinusSymbol:
+                        sum = sum - massInt[i + 1];
+                        break;
                 }
             }
 
@@ -93,36 +79,28 @@ namespace Startup
         
         private static string[] SplitArguments(string inString) 
         {
-            char[] separator = { '-', '+' }; // TODO VS: 1) это не константа, почему имя с большой буквы? 2) пробелы вокруг фигурных скобок неправильно стоят.
-                                            // TODO VS: посмотри строку 34, там у тебя все верно. 3) явно создавать новый массив через "new char[]" не требуется
-                                            // TODO VS: опять же смотри строку 34, как сделано там. почему в двух местах разные подходы?
+            char[] separator = { PlusSymbol, MinusSymbol }; 
             var massString = inString.Split(separator); 
             return massString;
         }
         
         private static char[] MassSign(string inString)
         {
-            // VS: Нарушение правил.
-            const char FindSymbol1 = '-';
-            // VS: Нарушение правил.
-            const char FindSymbol2 = '+';
             var numberSign = FindNumberSignPlusOne(inString);
             var massSign = new char[numberSign];
             var massSignNumber = 0;
 
-            // VS: Предложение по улучшению
             for (var i = 0; i < inString.Length; i++) 
             {
-                if (inString[i] == FindSymbol1)
+                if (inString[i] == MinusSymbol)
                 {
-                    massSign[massSignNumber] = FindSymbol1;
+                    massSign[massSignNumber] = MinusSymbol;
                     massSignNumber = massSignNumber + 1;
                 }
 
-                // VS: Предложение по улучшению (и опять тот самый типичный случай)
-                if (inString[i] == FindSymbol2)
+                if (inString[i] == PlusSymbol)
                 {
-                    massSign[massSignNumber] = FindSymbol2;
+                    massSign[massSignNumber] = PlusSymbol;
                     massSignNumber = massSignNumber + 1;
                 }
             }
@@ -136,8 +114,7 @@ namespace Startup
             var i = 0; 
             var numberIndex = -1; 
             var amountSymbol = 0;
-            // VS: излиишний код. выделен бледным
-            var findSymbols = new[] { '+', '-' }; 
+            var findSymbols = new[] { PlusSymbol, MinusSymbol }; 
 
             while (i != -1)
             {
@@ -174,13 +151,11 @@ namespace Startup
             const int MaxValue = 1000;
             const int MinValue = -1000;
 
-            if (intParse < MinValue)  // VS: обрати внимание, что в этом случае у тебя вторая проверка не будет вызвана, если сработает первая
-                                    // VS: это отличает этот случай от строки 77
+            if (intParse < MinValue)  
             {
                 return MinValue; 
             }
 
-            // VS: Предложение по улучшению (тоже желательно сначала разробрать вместе)
             if (intParse > MaxValue)
             {
                 return MaxValue;
@@ -193,5 +168,3 @@ namespace Startup
 
 // TODO VS: [CG 1] Каждый публичный класс, интерфейс, перечисление  должны располагаться в отдельном файле. Помещать в тот же файл два класса можно только
 // TODO VS: для приватных классов. Добро пожаловать в реальный мир =)
-
-// TODO VS: [CG 2] имена констант начинаются с большой буквы, как и у методов.
