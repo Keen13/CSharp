@@ -37,7 +37,7 @@ namespace Startup
             return Console.ReadLine();
         }
 
-        private static int Sum(string inString)
+        public static int Sum(string inString)
         {
             var massInt = ParseStringToInt(SplitArguments(inString));
             var massSign = MassSign(inString); 
