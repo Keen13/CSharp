@@ -109,7 +109,7 @@ namespace Startup
             return amountSymbol;
         }
 
-        private static int[] ParseStringToInt(IList<string> inString)
+        public static int[] ParseStringToInt(IList<string> inString)
         {
             var intParse = new int[inString.Count];
 
