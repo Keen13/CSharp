@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 
 namespace Startup
@@ -25,18 +25,20 @@ namespace Startup
                     break;
                 }
 
-                Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
+                Console.WriteLine("РћС‚РІРµС‚ : {0}", Sum(arbitraryString));
             }
 
-            Console.WriteLine("Спасибо что воспользовались этой программой.");
+            Console.WriteLine("РЎРїР°СЃРёР±Рѕ С‡С‚Рѕ РІРѕСЃРїРѕР»СЊР·РѕРІР°Р»РёСЃСЊ СЌС‚РѕР№ РїСЂРѕРіСЂР°РјРјРѕР№.");
         }
         
         private static string ReadString() 
         {
-            Console.WriteLine("Введите арифметический пример произвольной длины на сложение и вычитание \nцелых чисел или end для выхода :");
+            Console.WriteLine("Р’РІРµРґРёС‚Рµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёР№ РїСЂРёРјРµСЂ РїСЂРѕРёР·РІРѕР»СЊРЅРѕР№ РґР»РёРЅС‹ РЅР° СЃР»РѕР¶РµРЅРёРµ Рё РІС‹С‡РёС‚Р°РЅРёРµ \nС†РµР»С‹С… С‡РёСЃРµР» РёР»Рё end РґР»СЏ РІС‹С…РѕРґР° :");
             return Console.ReadLine();
         }
 
+        // TODO VS: РўРµРїРµСЂСЊ РїРѕСЃРјРѕС‚СЂРё РЅР° СЌС‚РѕС‚ РєР»Р°СЃСЃ РµС‰Рµ СЂР°Р· - Сѓ С‚РµР±СЏ  РїРѕР»СѓС‡РёР»РѕСЃСЊ РјРёРЅРёРјСѓРј  РґРІР° С‚РѕС‡РєРё РІС…РѕРґР° РІ РЅРµРіРѕ: ExecuteCalculator() Рё Sum(string inString)
+        // TD VS: РРјРµРЅРЅРѕ  Р·РґРµСЃСЊ СЏ Рё РїСЂРµРґР»Р°РіР°Р» С‚РµР±Рµ СЂР°Р·Р±РёС‚СЊ РєР»Р°СЃСЃ РЅР° РґРІР°. РћРґРёРЅ Р±СѓРґРµС‚ РѕС‚РІРµС‡Р°С‚СЊ С‚РѕР»СЊРєРѕ Р·Р° Р»РѕРіРёРєСѓ РІС‹С‡РёСЃР»РµРЅРёР№, Р° РІС‚РѕСЂРѕР№ Р·Р°  РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј.
         public static int Sum(string inString)
         {
             var massInt = ParseStringToInt(SplitArguments(inString));
@@ -91,8 +93,8 @@ namespace Startup
             return massSign;
         }
         
-        private static int FindNumberSignPlusOne(string inString)  //не нашел ничего уменее как свести массивы к одной длинне таким вот способом.
-            // VS: ну тоже подход, нашел ведь его.  доведи до ума, потом будет тебе другая идея.
+        private static int FindNumberSignPlusOne(string inString)  //РЅРµ РЅР°С€РµР» РЅРёС‡РµРіРѕ СѓРјРµРЅРµРµ РєР°Рє СЃРІРµСЃС‚Рё РјР°СЃСЃРёРІС‹ Рє РѕРґРЅРѕР№ РґР»РёРЅРЅРµ С‚Р°РєРёРј РІРѕС‚ СЃРїРѕСЃРѕР±РѕРј.
+            // VS: РЅСѓ С‚РѕР¶Рµ РїРѕРґС…РѕРґ, РЅР°С€РµР» РІРµРґСЊ РµРіРѕ.  РґРѕРІРµРґРё РґРѕ СѓРјР°, РїРѕС‚РѕРј Р±СѓРґРµС‚ С‚РµР±Рµ РґСЂСѓРіР°СЏ РёРґРµСЏ.
         {
             var i = 0; 
             var numberIndex = -1; 
@@ -109,7 +111,7 @@ namespace Startup
             return amountSymbol;
         }
 
-        public static int[] ParseStringToInt(IList<string> inString)
+        public static int[] ParseStringToInt(IList<string> inString) // TODO VS: РїРѕСЃР»Рµ РїРїРµСЂРµСЂР°Р±РѕС‚РєРё С‚РµСЃС‚РѕРІ С‚РµР±Рµ СЌС‚РѕС‚ РјРµС‚РѕРґ РєР°Рє public РЅРµ РїРѕС‚СЂРµР±СѓРµС‚СЃСЏ
         {
             var intParse = new int[inString.Count];
 
