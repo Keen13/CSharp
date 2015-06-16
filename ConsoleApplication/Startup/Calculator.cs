@@ -111,7 +111,7 @@ namespace Startup
             return amountSymbol;
         }
 
-        public static int[] ParseStringToInt(IList<string> inString) // TODO VS: после ппереработки тестов тебе этот метод как public не потребуется
+        private static int[] ParseStringToInt(IList<string> inString) 
         {
             var intParse = new int[inString.Count];
 

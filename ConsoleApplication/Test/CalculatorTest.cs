@@ -25,30 +25,68 @@ namespace Test
             Assert.AreEqual(0, result);
         }
 
-        // TODO VS: "писать тесты не на конкретные методы, а на логику класса" - сам же сказал. А это тест проверяет логику не калькулятора, а конкретного метода,
-        // TD VS: который не факт что у тебя остается в будущем. То же самое ты можешь проверить через логику класса. К слову сказать, чем EmptyInputTest отличается
-        // TD VS:  от того, что ты проверяешь тут (кроме конкретных данных на входе)?
+        [TestMethod]
+        public void BorderlineSignificanceUpTest()
+        {
+            var result = Calculator.Sum("1001");
+
+            Assert.AreEqual(1000, result); 
+        }
+
         [TestMethod]
         public void BorderlineSignificanceTest()
         {
-            var testString = new[] { "1001", "1000", "999" };
-            var result = Calculator.ParseStringToInt(testString);
+            var result = Calculator.Sum("1000");
 
-            Assert.AreEqual(1000, result[0]); // TODO VS: [CG1] + см. комментарий 
-            Assert.AreEqual(1000, result[1]); // TODO VS: [CG1]
-            Assert.AreEqual(999, result[2]); // TODO VS: [CG1]
+            Assert.AreEqual(1000, result); 
+        }
+
+        [TestMethod]
+        public void BorderlineSignificanceDownTest()
+        {
+            var result = Calculator.Sum("999");
+
+            Assert.AreEqual(999, result); 
         }
         
         [TestMethod]
-        public void CalculatorFunction()
+        public void CalculatorFunctionPlus()
         {
-            var testString = new[] { "5+3", "5-3", "0" };
-            var result = Calculator.Sum(testString[0]);
-            Assert.AreEqual(8, result); // TODO VS: [CG1] + см. комментарий 
-            result = Calculator.Sum(testString[1]);
-            Assert.AreEqual(2, result); // TODO VS: [CG1]
-            result = Calculator.Sum(testString[2]);
-            Assert.AreEqual(0, result); // TODO VS: [CG1]
+            var result = Calculator.Sum("5+3");
+
+            Assert.AreEqual(8, result);
+        }
+
+        [TestMethod]
+        public void CalculatorFunctionMinus()
+        {
+            var result = Calculator.Sum("3-5");
+
+            Assert.AreEqual(-2, result); 
+        }
+
+        [TestMethod]
+        public void CalculatorFunctionTestSpase()
+        {
+            var result = Calculator.Sum(" 5 + 3 ");
+
+            Assert.AreEqual(8, result); 
+        }
+
+        [TestMethod]
+        public void CalculatorFunctionTestSpase1()
+        {
+            var result = Calculator.Sum("4 8+3");
+
+            Assert.AreEqual(3, result);
+        }
+
+        [TestMethod]
+        public void CalculatorFunctionTestNotValid()
+        {
+            var result = Calculator.Sum("invalid");
+
+            Assert.AreEqual(0, result);
         }
     }
 }
