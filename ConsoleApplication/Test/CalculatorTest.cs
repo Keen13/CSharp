@@ -66,7 +66,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void CalculatorFunctionTestSpase()
+        public void CalculatorFunctionTestSpase() // TODO VS: "пробел" правильно пишется "space". разве у тебя ReSpeller не подчеркивает зеленым опечатку в названии метода?
         {
             var result = Calculator.Sum(" 5 + 3 ");
 
@@ -74,9 +74,9 @@ namespace Test
         }
 
         [TestMethod]
-        public void CalculatorFunctionTestSpase1()
+        public void CalculatorFunctionTestSpase1()  // TODO VS: "space"
         {
-            var result = Calculator.Sum("4 8+3");
+            var result = Calculator.Sum("4 8+3"); //VS: здесь можно было бы проверить просто "4 8", ведь то, что сложение работает, проверено другим тестом
 
             Assert.AreEqual(3, result);
         }
