@@ -104,5 +104,13 @@ namespace Test
 
             Assert.AreEqual(-5, result);
         }
+
+        [TestMethod]
+        public void CalculatorFunctionTestLongExample()
+        {
+            var result = Calculator.Sum("345.78+grgr-  - 5+ 45 4+ 10 + 9999");
+
+            Assert.AreEqual(1005, result);
+        }
     }
 }

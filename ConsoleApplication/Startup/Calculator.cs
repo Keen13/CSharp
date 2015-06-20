@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Startup
 {
@@ -7,43 +6,11 @@ namespace Startup
     {
         private const char PlusSymbol = '+';
         private const char MinusSymbol = '-';
-        private const string EscapeString = "end";
-        private static readonly char[] FloodSymbols = { ' ', '.', '!' };
 
-        public void ExecuteCalculator()
-        {       
-            Run();
-        }
-
-        private static void Run()
-        {
-            while (true) 
-            {
-                var arbitraryString = ReadString();
-                if (arbitraryString.Trim(FloodSymbols) == EscapeString)
-                {
-                    break;
-                }
-
-                Console.WriteLine("Ответ : {0}", Sum(arbitraryString));
-            }
-
-            Console.WriteLine("Спасибо что воспользовались этой программой.");
-        }
-        
-        private static string ReadString() 
-        {
-            Console.WriteLine("Введите арифметический пример произвольной длины на сложение и вычитание \nцелых чисел или end для выхода :");
-            return Console.ReadLine();
-        }
-
-        // TODO VS: Теперь посмотри на этот класс еще раз - у тебя  получилось минимум  два точки входа в него: ExecuteCalculator() и Sum(string inString)
-        // TD VS: Именно  здесь я и предлагал тебе разбить класс на два. Один будет отвечать только за логику вычислений, а второй за  взаимодействие с пользователем.
         public static int Sum(string inString)
         {
             var massInt = ParseStringToInt(SplitArguments(inString));
             var massSign = MassSign(inString); 
-  
             var sum = massInt[0];
             
             for (var i = 0; i < massInt.Length; i++) 
@@ -64,8 +31,8 @@ namespace Startup
         
         private static string[] SplitArguments(string inString) 
         {
-            char[] separator = { PlusSymbol, MinusSymbol }; 
-            var massString = inString.Split(separator); 
+            char[] separator = { PlusSymbol, MinusSymbol };
+            var massString = inString.Split(separator);
             return massString;
         }
         

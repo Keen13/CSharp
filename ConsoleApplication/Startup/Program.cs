@@ -6,7 +6,7 @@ namespace Startup
     {
         public static void Main()
         {
-            var expression = new Calculator(); 
+            var expression = new Interface(); 
             expression.ExecuteCalculator();
   
             Console.WriteLine("Press any key to exit.");
