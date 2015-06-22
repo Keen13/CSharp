@@ -9,6 +9,11 @@ namespace Startup
 
         public static int Sum(string inString)
         {
+            if (inString == null)
+            {
+                inString = string.Empty;
+            }
+            
             var massInt = ParseStringToInt(SplitArguments(inString));
             var massSign = MassSign(inString); 
             var sum = massInt[0];
