@@ -33,7 +33,16 @@ namespace Startup
 
             return sum;
         }
-        
+
+        public static int SumRecursion(string inString)
+        {
+            inString = inString ?? string.Empty;
+            var sum = 0;
+            var stringLength = inString.Length;
+
+            return 0;
+        }
+
         private static string[] SplitArguments(string inString) 
         {
             char[] separator = { PlusSymbol, MinusSymbol };
