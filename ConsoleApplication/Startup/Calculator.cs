@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Startup
 {
@@ -39,6 +40,13 @@ namespace Startup
             inString = inString ?? string.Empty;
             var sum = 0;
             var stringLength = inString.Length;
+            var numberStringItem = 0;
+
+            while ((inString[numberStringItem] != PlusSymbol) && (inString[numberStringItem] != MinusSymbol))
+            {
+                numberStringItem++;
+            }
+
 
             return 0;
         }

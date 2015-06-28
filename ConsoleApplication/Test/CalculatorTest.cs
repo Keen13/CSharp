@@ -106,6 +106,14 @@ namespace Test
         }
 
         [TestMethod]
+        public void CalculatorFunctionTestSign()
+        {
+            var result = Calculator.Sum("+");
+
+            Assert.AreEqual(0, result);
+        }
+
+        [TestMethod]
         public void CalculatorFunctionTestLongExample()
         {
             var result = Calculator.Sum("345.78+grgr-  - 5+ 45 4+ 10 + 9999");
