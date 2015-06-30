@@ -8,7 +8,7 @@ namespace Startup
         private const char PlusSymbol = '+';
         private const char MinusSymbol = '-';
 
-        public static int Sum(string inString)
+        public static int Sum1(string inString)
         {
             if (inString == null)
             {
@@ -35,18 +35,22 @@ namespace Startup
             return sum;
         }
 
-        public static int SumRecursion(string inString)
+        public static int Sum(string inString)
         {
             inString = inString ?? string.Empty;
             var sum = 0;
             var stringLength = inString.Length;
-            var numberStringItem = 0;
+            var findSymbol = new[] { PlusSymbol, MinusSymbol };
 
-            while ((inString[numberStringItem] != PlusSymbol) && (inString[numberStringItem] != MinusSymbol))
+            var numberStringItem = inString.IndexOfAny(findSymbol);
+            
+            var z = numberStringItem + 1;
+
+            if (numberStringItem != -1)
             {
-                numberStringItem++;
+                sum = ParseOneValueInt(inString.Substring(0, numberStringItem));
+                return sum + Sum(inString.Remove(0, z));
             }
-
 
             return 0;
         }
