@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Startup
 {
@@ -38,21 +37,30 @@ namespace Startup
         public static int Sum(string inString)
         {
             inString = inString ?? string.Empty;
-            var sum = 0;
-            var stringLength = inString.Length;
             var findSymbol = new[] { PlusSymbol, MinusSymbol };
-
             var numberStringItem = inString.IndexOfAny(findSymbol);
-            
             var z = numberStringItem + 1;
-
-            if (numberStringItem != -1)
+            
+            /*if (numberStringItem == 0)
             {
-                sum = ParseOneValueInt(inString.Substring(0, numberStringItem));
-                return sum + Sum(inString.Remove(0, z));
+                z = numberStringItem;
+            }
+           */
+            if (numberStringItem == -1)
+            {
+                return ParseOneValueInt(inString);
             }
 
-            return 0;
+            if (inString[numberStringItem] == PlusSymbol)
+            {
+                var sum = ParseOneValueInt(inString.Substring(0, numberStringItem));
+                return sum + Sum(inString.Remove(0, z));
+            }
+            else
+            {
+                var sum = ParseOneValueInt(inString.Substring(0, numberStringItem));
+                return sum - Sum(inString.Remove(0, z));
+            }
         }
 
         private static string[] SplitArguments(string inString) 

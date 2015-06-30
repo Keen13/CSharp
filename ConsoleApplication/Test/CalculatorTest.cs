@@ -108,9 +108,17 @@ namespace Test
         [TestMethod]
         public void CalculatorFunctionTestSign()
         {
-            var result = Calculator.Sum("+");
+            var result = Calculator.Sum("-");
 
             Assert.AreEqual(0, result);
+        }
+
+        [TestMethod]
+        public void CalculatorFunctionTestDoubleSign()
+        {
+            var result = Calculator.Sum("1-5+10");
+
+            Assert.AreEqual(6, result);
         }
 
         [TestMethod]
