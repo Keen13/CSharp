@@ -7,6 +7,9 @@ namespace Startup
         private const char PlusSymbol = '+';
         private const char MinusSymbol = '-';
 
+        // TODO VS: Неиспользуемый метод.  ты его с какой-то целью оставил? и название Sum1  в любом случае плохое, т.к. неинформативное.
+        // ---- VS: хотя бы назвал SumOld
+        // TODO VS: Ну и вообще,  удали весь неиспользуемый код
         public static int Sum1(string inString)
         {
             if (inString == null)
@@ -37,15 +40,17 @@ namespace Startup
         public static int Sum(string inString)
         {
             inString = inString ?? string.Empty;
-            var findSymbol = new[] { PlusSymbol, MinusSymbol };
-            var numberStringItem = inString.IndexOfAny(findSymbol);
-            var z = numberStringItem + 1;
-            
-            /*if (numberStringItem == 0)
-            {
-                z = numberStringItem;
-            }
-           */
+            var findSymbol = new[] { PlusSymbol, MinusSymbol }; // TODO VS: что должно значить название переменной findSymbol? раньше было более понятное separator
+            var numberStringItem = inString.IndexOfAny(findSymbol); // TODO VS: неинформативное имя переменной numberStringItem
+            var z = numberStringItem + 1; // TODO VS: z это совсем плохое имя, не говорит о смысле переменной ничего 
+
+            // TODO VS: если это закомментировано для  рабочих целей - то пока нормально. но вообще комментированный код оставлять не надо
+            // ---- VS: он только засоряет все остальное. если код не нужен - его надо удалить.
+            //if (numberStringItem == 0)
+            //{
+            //    z = numberStringItem;
+            //}
+           
             if (numberStringItem == -1)
             {
                 return ParseOneValueInt(inString);
@@ -53,7 +58,7 @@ namespace Startup
 
             if (inString[numberStringItem] == PlusSymbol)
             {
-                var sum = ParseOneValueInt(inString.Substring(0, numberStringItem));
+                var sum = ParseOneValueInt(inString.Substring(0, numberStringItem)); // TODO VS: дублирующийся код
                 return sum + Sum(inString.Remove(0, z));
             }
             else
@@ -63,13 +68,13 @@ namespace Startup
             }
         }
 
-        private static string[] SplitArguments(string inString) 
+        private static string[] SplitArguments(string inString)
         {
             char[] separator = { PlusSymbol, MinusSymbol };
             var massString = inString.Split(separator);
             return massString;
         }
-        
+
         private static char[] MassSign(string inString)
         {
             var numberSign = FindNumberSignPlusOne(inString);
