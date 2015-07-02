@@ -28,6 +28,23 @@
             return Sum(inString.Remove(indexFindSymbol)) + sum;
         }
 
+        // TODO VS: Проанализируй мою реализацию и сравни со своей,  чтобы у тебя было больше  идей, как что-то можно делать.
+        public static int MySum(string inString)
+        {
+            char[] separator = { PlusSymbol, MinusSymbol };
+            var parts = inString.Split(separator, 2);
+            var firstPartValue = ParseOneValueInt(parts[0]);
+
+            if (parts.Length == 1)
+            {
+                return firstPartValue;
+            }
+
+            var sign = inString[parts[0].Length];
+            var isPlus = sign == PlusSymbol;
+            return isPlus ? firstPartValue + MySum(parts[1]) : firstPartValue - MySum(parts[1]);
+        }
+
         private static int ParseOneValueInt(string inString)
         {
             int intParse;
