@@ -1,37 +1,48 @@
-﻿using System.Linq;
-
-namespace Startup
+﻿namespace Startup
 {
     public class Calculator 
     {
         private const char PlusSymbol = '+';
         private const char MinusSymbol = '-';
 
-        public static int Calculate(string expression)
+        public static int Sum(string inString)
         {
-            expression = expression ?? string.Empty;
-            var parts = expression.Split(PlusSymbol);
-            var result = 0;
-
-            foreach (var subtractionExpression in parts)
+            inString = inString ?? string.Empty;
+            var separator = new[] { PlusSymbol, MinusSymbol }; 
+            var indexFindSymbol = inString.LastIndexOfAny(separator); 
+            var positionSubstring = indexFindSymbol + 1; 
+            var lengthString = inString.Length;
+            var lengthSubstring = lengthString - positionSubstring;
+            var sum = ParseOneValueInt(inString.Substring(positionSubstring, lengthSubstring));
+            
+            if (indexFindSymbol == -1)
             {
-                result += CalculateSubtractionExpression(subtractionExpression);
+                return ParseOneValueInt(inString);
             }
 
-            return result;
+            if (inString[indexFindSymbol] == MinusSymbol)
+            {
+                return Sum(inString.Remove(indexFindSymbol)) - sum;
+            }
+
+            return Sum(inString.Remove(indexFindSymbol)) + sum;
         }
 
-        private static int CalculateSubtractionExpression(string subtractionExpression)
+        // TODO VS: Проанализируй мою реализацию и сравни со своей,  чтобы у тебя было больше  идей, как что-то можно делать.
+        public static int MySum(string inString)
         {
-            var parts = subtractionExpression.Split(MinusSymbol);
-            var result = ParseOneValueInt(parts[0]);
+            char[] separator = { PlusSymbol, MinusSymbol };
+            var parts = inString.Split(separator, 2);
+            var firstPartValue = ParseOneValueInt(parts[0]);
 
-            for (var i = 1; i < parts.Count(); i++)
+            if (parts.Length == 1)
             {
-                result -= ParseOneValueInt(parts[i]);
+                return firstPartValue;
             }
 
-            return result;
+            var sign = inString[parts[0].Length];
+            var isPlus = sign == PlusSymbol;
+            return isPlus ? firstPartValue + MySum(parts[1]) : firstPartValue - MySum(parts[1]);
         }
 
         private static int ParseOneValueInt(string inString)
