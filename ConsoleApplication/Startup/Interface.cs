@@ -22,7 +22,7 @@ namespace Startup
                     break;
                 }
 
-                Console.WriteLine("Ответ : {0}", Calculator.Sum(arbitraryString));
+                Console.WriteLine("Ответ : {0}", Calculator.Calculate(arbitraryString));
             }
 
             Console.WriteLine("Спасибо что воспользовались этой программой.");
