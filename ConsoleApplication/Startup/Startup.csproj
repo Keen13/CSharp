@@ -85,6 +85,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PaymentSystemApi\PaymentSystemApi.csproj">
+      <Project>{56E6EFD5-2159-4514-B0A3-6E5AC915B842}</Project>
+      <Name>PaymentSystemApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

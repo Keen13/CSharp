@@ -1,4 +1,5 @@
 ﻿using System;
+using PaymentSystemApi;
 
 namespace Startup  
 {
@@ -6,9 +7,12 @@ namespace Startup
     {
         public static void Main()
         {
-            var expression = new Interface(); 
-            expression.ExecuteCalculator();
-  
+            //var expression = new Interface(); 
+            //expression.ExecuteCalculator();
+
+            var expression = new PaymentInterface();
+            expression.Run();
+            
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
