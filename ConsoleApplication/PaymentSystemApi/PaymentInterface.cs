@@ -14,7 +14,13 @@ namespace PaymentSystemApi
 
         private const string BankID3 = "SBRX";
         private const ConsoleKey KeyExit = ConsoleKey.Escape;
-        
+
+        private string myBank = string.Empty;
+
+        private string myАccount = string.Empty;
+
+        private string myMoney = string.Empty;
+
         public void Run()
         {
             Console.WriteLine("Выбирите ваш бак: \n1)Банк Вампириал \n2)Банк Обирон \n3)Сбербанк России");
@@ -32,18 +38,21 @@ namespace PaymentSystemApi
                     case ConsoleKey.D1:
                         {
                             Console.WriteLine("выбран пункт 1");
+                            myBank = ChooseBank(1);
                             break;
                         }
                     
                     case ConsoleKey.D2:
                         {
                             Console.WriteLine("выбран пункт 2");
+                            myBank = ChooseBank(2);
                             break;
                         }
                     
                     case ConsoleKey.D3:
                         {
                             Console.WriteLine("выбран пункт 3");
+                            myBank = ChooseBank(3);
                             break;
                         }
                 }
@@ -53,7 +62,7 @@ namespace PaymentSystemApi
         private static string ReadString()
         {
             Console.WriteLine(
-                "Введите арифметический пример произвольной длины на сложение и вычитание \nцелых чисел или end для выхода :");
+                "Введите номер счета :");
             return Console.ReadLine();
         }
 
