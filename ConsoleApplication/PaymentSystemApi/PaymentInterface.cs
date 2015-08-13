@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PaymentSystemApi
@@ -17,7 +18,7 @@ namespace PaymentSystemApi
 
         private string myBank = string.Empty;
 
-        private string myАccount = string.Empty;
+        private string myAccount = string.Empty;
 
         private string myMoney = string.Empty;
 
@@ -39,6 +40,8 @@ namespace PaymentSystemApi
                         {
                             Console.WriteLine("выбран пункт 1");
                             myBank = ChooseBank(1);
+                            myAccount = ReadString();
+                            Console.WriteLine(myAccount);
                             break;
                         }
                     
@@ -61,9 +64,11 @@ namespace PaymentSystemApi
 
         private static string ReadString()
         {
-            Console.WriteLine(
-                "Введите номер счета :");
-            return Console.ReadLine();
+            Console.WriteLine("Введите номер счета :");
+            var pattern = new Regex(@"\d{9,12}");
+            var account = Console.ReadLine();
+
+            return account != null && pattern.IsMatch(account) ? account : "is not";
         }
 
         private static string ChooseBank(int number)
