@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PaymentSystemApi
@@ -6,9 +7,7 @@ namespace PaymentSystemApi
     public class PaymentInterface
     {
         private const string BankID1 = "VMPX";
-
         private const string BankID2 = "OBRX";
-
         private const string BankID3 = "SBRX";
 
         private const decimal MinimalCommission = 10;
@@ -23,89 +22,77 @@ namespace PaymentSystemApi
 
         private const ConsoleKey KeyExit = ConsoleKey.Escape;
 
-        private string userBank = string.Empty;
-
-        private static string userName = string.Empty;
-
-        private static string userAccount = string.Empty;
-
-        private static string userMoney = string.Empty;
+        private UserInputData _data;
 
         public void Run()
         {
+            _data = new UserInputData();
+
             while (true)
             {
-                Console.WriteLine("Выбирите ваш бак: \n1)Банк Вампириал \n2)Банк Обирон \n3)Сбербанк России");
-                var keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == KeyExit)
-                {
-                    break;
-                }
-                switch (keyInfo.Key)
-                {
-                    case ConsoleKey.D1:
-                        {
-                            Console.WriteLine("выбран пункт 1");
-                            userBank = ChooseBank(1);
-                            InsideMenu();
-                            break;
-                        }
-                    
-                    case ConsoleKey.D2:
-                        {
-                            Console.WriteLine("выбран пункт 2");
-                            userBank = ChooseBank(2);
-                            InsideMenu();
-                            break;
-                        }
-                    
-                    case ConsoleKey.D3:
-                        {
-                            Console.WriteLine("выбран пункт 3");
-                            userBank = ChooseBank(3);
-                            InsideMenu();
-                            break;
-                        }
-                }
+                var selectUser = SelectUser();
+                _data.UserBank = ChooseBank(selectUser);
+                InsideMenu();
             }
         }
 
-        private static string ChooseBank(int number)
+        private static string SelectUser()  // ограничить выбор банка!!!
         {
-            if (number == 1)
+            Console.WriteLine("Выбирите ваш бак: \n1)Банк Вампириал \n2)Банк Обирон \n3)Сбербанк России");
+            var keyInfo = Console.ReadKey(true);
+            if (keyInfo.Key == ConsoleKey.D1)
             {
-                return BankID1;
+                Console.WriteLine("выбран пункт 1");
+                return "1";
             }
 
-            if (number == 2)
+            if (keyInfo.Key == ConsoleKey.D2)
             {
-                return BankID2;
+                Console.WriteLine("выбран пункт 2");
+                return "2";
+            }
+            
+            if (keyInfo.Key == ConsoleKey.D3)
+            {
+                Console.WriteLine("выбран пункт 3");
+                return "3";
             }
 
-            if (number == 3)
-            {
-                return BankID3;
-            }
-
-            return "0";
+            return "is not";
         }
 
-        private static void InsideMenu()
+        private static string ChooseBank(string number)
         {
-            userAccount = ReadAccount();
-            if (userAccount == string.Empty || userAccount == "is not")
+            switch (number)
             {
-                Console.WriteLine(userAccount);
+                case "1":
+                    return BankID1;
+                case "2":
+                    return BankID2;
+                case "3":
+                    return BankID3;
+                default:
+                    Console.WriteLine("Выбирите один из представленных банков");
+                    return "0";
+            }
+        }
+
+        private void InsideMenu()
+        {
+            _data.UserAccount = ReadAccount();
+            if (_data.UserAccount == string.Empty || _data.UserAccount == "is not")
+            {
+                Console.WriteLine(_data.UserAccount);
             }
             else
             {
-                userMoney = ReadMoney();
-                Console.WriteLine("Со счета спишится {0} руб. в том числе {1} руб. комиссия", ParseMoney(userMoney) + СountingСommission(userMoney), СountingСommission(userMoney));
+                _data.UserMoney = ReadMoney();
+                Console.WriteLine("Со счета спишится {0} руб. в том числе {1} руб. комиссия", ParseMoney(_data.UserMoney) + СountingСommission(_data.UserMoney), СountingСommission(_data.UserMoney));
             }
 
-            if (ParseMoney(userMoney) >= ConfidenceLimit && userAccount != "is not")
+            if (ParseMoney(_data.UserMoney) >= ConfidenceLimit && _data.UserAccount != "is not")
             {
-                userName = ReadName();
+                _data.UserName = ReadName();
             }
         }
 
