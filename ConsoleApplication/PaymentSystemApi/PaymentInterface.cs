@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PaymentSystemApi
 {
     public class PaymentInterface
     {
-        private const string BankID1 = "VMPX";
-        private const string BankID2 = "OBRX";
-        private const string BankID3 = "SBRX";
+        private const string BankId1 = "VMPX";
+        private const string BankId2 = "OBRX";
+        private const string BankId3 = "SBRX";
 
         private const decimal MinimalCommission = 10;
         private const decimal MediumCommission = 30;
@@ -20,7 +19,8 @@ namespace PaymentSystemApi
         private const decimal MediumPercent = 0.02m;
         private const decimal MinimalPercent = 0.01m;
 
-        private const ConsoleKey KeyExit = ConsoleKey.Escape;
+        private const int OneBarrierRemittance = 1000;
+        private const int TowBarrierRemittance = 5000;
 
         private UserInputData _data;
 
@@ -31,15 +31,30 @@ namespace PaymentSystemApi
             while (true)
             {
                 var selectUser = SelectUser();
-                _data.UserBank = ChooseBank(selectUser);
-                InsideMenu();
+                
+                if (selectUser == "4")
+                {
+                    break;
+                }
+
+                if (selectUser != "is not")
+                {
+                    _data.UserBank = ChooseBank(selectUser);
+                    InsideMenu();
+                }
+                else
+                {
+                    Console.WriteLine("Нет такого пункта меню \n");
+                }
             }
         }
 
-        private static string SelectUser()  // ограничить выбор банка!!!
+        private static string SelectUser() 
         {
             Console.WriteLine("Выбирите ваш бак: \n1)Банк Вампириал \n2)Банк Обирон \n3)Сбербанк России");
             var keyInfo = Console.ReadKey(true);
+            const ConsoleKey KeyExit = ConsoleKey.Escape;
+
             if (keyInfo.Key == ConsoleKey.D1)
             {
                 Console.WriteLine("выбран пункт 1");
@@ -58,6 +73,12 @@ namespace PaymentSystemApi
                 return "3";
             }
 
+            if (keyInfo.Key == KeyExit)
+            {
+                Console.WriteLine("Спасибо!");
+                return "4";
+            }
+
             return "is not";
         }
 
@@ -66,31 +87,30 @@ namespace PaymentSystemApi
             switch (number)
             {
                 case "1":
-                    return BankID1;
+                    return BankId1;
                 case "2":
-                    return BankID2;
+                    return BankId2;
                 case "3":
-                    return BankID3;
+                    return BankId3;
                 default:
-                    Console.WriteLine("Выбирите один из представленных банков");
+                    Console.WriteLine("Выбирите один из представленных банков \n");
                     return "0";
             }
         }
 
         private void InsideMenu()
         {
+            var money = 0.00m;
             _data.UserAccount = ReadAccount();
-            if (_data.UserAccount == string.Empty || _data.UserAccount == "is not")
-            {
-                Console.WriteLine(_data.UserAccount);
-            }
-            else
+            if (_data.UserAccount != "is not")
             {
                 _data.UserMoney = ReadMoney();
-                Console.WriteLine("Со счета спишится {0} руб. в том числе {1} руб. комиссия", ParseMoney(_data.UserMoney) + СountingСommission(_data.UserMoney), СountingСommission(_data.UserMoney));
+                money = ParseMoney(_data.UserMoney);
+                var countingCommission = CountingCommission(_data.UserMoney);
+                Console.WriteLine("Со счета спишится {0} руб. в том числе {1} руб. комиссия \n", money + countingCommission, countingCommission);
             }
 
-            if (ParseMoney(_data.UserMoney) >= ConfidenceLimit && _data.UserAccount != "is not")
+            if (money >= ConfidenceLimit && _data.UserAccount != "is not")
             {
                 _data.UserName = ReadName();
             }
@@ -102,7 +122,13 @@ namespace PaymentSystemApi
             var pattern = new Regex(@"^\d{9,12}$");
             var account = Console.ReadLine();
 
-            return account != null && pattern.IsMatch(account) ? account : "is not";
+            if (!string.IsNullOrEmpty(account) && pattern.IsMatch(account))
+            {
+                return account;
+            }
+
+            Console.WriteLine("Неверный номер счета");
+            return "is not";
         }
 
         private static string ReadMoney()
@@ -114,14 +140,12 @@ namespace PaymentSystemApi
             {
                 Console.WriteLine("Введите сумму денежного перевода.");
                 money = Console.ReadLine();
-                if (money != null && pattern.IsMatch(money) == true)
+                if (money != null && pattern.IsMatch(money))
                 {
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("Неверная сумма! Повторите ввод.");
-                }
+
+                Console.WriteLine("Неверная сумма! Повторите ввод.\n");
             }
 
             Console.WriteLine("введенная сумма {0} руб.", money);
@@ -157,36 +181,33 @@ namespace PaymentSystemApi
             return name;
         }
 
-        private static decimal СountingСommission(string money)
+        private static decimal CountingCommission(string money)
         {
-            var intMoney = decimal.Parse(money);
-            var resultCommission = 0.00m;
+            var decimalMoney = decimal.Parse(money);
+            decimal resultCommission;
 
-            if (intMoney < 1000)
+            if (decimalMoney < OneBarrierRemittance)
             {
-                resultCommission = intMoney * MaximumPercent;
+                resultCommission = decimalMoney * MaximumPercent;
                 if (resultCommission < MinimalCommission)
                 {
-                    resultCommission = MinimalCommission;
+                    return MinimalCommission;
                 }
             }
-
-            if (intMoney == 1000)
+            else if (decimalMoney == OneBarrierRemittance)
             {
-                resultCommission = intMoney * MediumPercent;
+                return decimalMoney * MediumPercent;
             }
-            
-            if (intMoney >= 1000 && intMoney < 5000)
+            else if (decimalMoney >= OneBarrierRemittance && decimalMoney < TowBarrierRemittance)
             {
-                resultCommission = intMoney * MediumPercent + MediumCommission;
+                return (decimalMoney * MediumPercent) + MediumCommission;
             }
-
-            if (intMoney >= 5000)
+            else
             {
-                resultCommission = intMoney * MinimalPercent + MaximumCommission;
+                resultCommission = (decimalMoney * MinimalPercent) + MaximumCommission;
                 if (resultCommission > BestCommission)
                 {
-                    resultCommission = BestCommission;
+                    return BestCommission;
                 }
             }
 
