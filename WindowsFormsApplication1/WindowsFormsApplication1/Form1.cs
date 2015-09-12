@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApplication1
 {
@@ -15,6 +17,11 @@ namespace WindowsFormsApplication1
         List<CarInfo> listCarInfo = new List<CarInfo>();
         CarInfo _carInfo = new CarInfo();
 
+        const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\zlodey\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
+        const string QueryString = "SELECT * from dbo.HandbookCar";
+
+        
+        
         public Form1()
         {
             InitializeComponent();
@@ -79,7 +86,32 @@ namespace WindowsFormsApplication1
             textBox5.Text = result ? "Совпадают" : "is not!";
         }
 
+        private void button4_Click(object sender, EventArgs e) // ???
+        {
+            var connection = new SqlConnection(ConnectionString);
+
+            connection.Disposed += new EventHandler(conn_Disposed);
+            connection.StateChange += new StateChangeEventHandler(conn_StateChange);
+
+            var dataAdapter = new SqlDataAdapter(QueryString, connection);
+            var ds = new DataSet();
+
+            dataAdapter.Fill(ds);
+            dataGridView1.DataSource = ds.Tables[0].DefaultView;
+            connection.Dispose();
+        }
+
+        private void conn_Disposed(object sender, EventArgs e)
+        {
+            label2.Text += "Событие Dispose"; 
+        }
+
+        private void conn_StateChange(object sender, StateChangeEventArgs e)
+        {
+               label1.Text+="\nИсходное состояние: "+e.OriginalState.ToString() + "\n Текущее состояние: "+ e.CurrentState.ToString(); 
+        }
 
 
     }
+
 }

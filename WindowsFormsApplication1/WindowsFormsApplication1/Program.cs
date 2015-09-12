@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
 
         private static void ConnectToDb()
         {
-            const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\z1\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
+            const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\zlodey\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
             const string QueryString = "SELECT * from dbo.HandbookCar";
 
             using (var connection = new SqlConnection(ConnectionString))
