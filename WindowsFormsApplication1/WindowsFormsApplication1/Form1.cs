@@ -15,13 +15,8 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         List<CarInfo> listCarInfo = new List<CarInfo>();
-        CarInfo _carInfo = new CarInfo();
 
-        const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\zlodey\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
-        const string QueryString = "SELECT * from dbo.HandbookCar";
 
-        
-        
         public Form1()
         {
             InitializeComponent();
@@ -35,13 +30,18 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             checkBox1.Checked = !checkBox1.Checked;
-            listBox1.Items.Add("aaaa");
-            _carInfo.BrandCar = textBox1.Text;
-            _carInfo.ModelCar = textBox2.Text;
-            _carInfo.StateNumberCar = textBox3.Text;
-            _carInfo.OwnerCar = textBox4.Text;
-            listCarInfo.Add(new CarInfo(){ BrandCar = textBox1.Text, ModelCar = textBox2.Text,
-                                          StateNumberCar = textBox3.Text,OwnerCar = textBox4.Text });
+            listBox1.Items.Add("Success");
+            listCarInfo.Add(
+                new CarInfo
+                {
+                    BrandAndModel = new BrandAndModel
+                    {
+                        BrandCar = textBox1.Text, 
+                        ModelCar = textBox2.Text,
+                    },
+                    StateNumberCar = textBox3.Text,
+                    OwnerCar = textBox4.Text 
+                });
 
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
@@ -63,55 +63,52 @@ namespace WindowsFormsApplication1
         {
 
             listBox1.Items.Add(string.Format("Марка {0} Модель {1} Госномер {2} Владелец {3}",
-                               objListCarInfo.BrandCar, objListCarInfo.ModelCar,
+                               objListCarInfo.BrandAndModel.BrandCar, objListCarInfo.BrandAndModel.ModelCar,
                                objListCarInfo.StateNumberCar, objListCarInfo.OwnerCar));
-        }
-
-
-
-        private bool Compare(CarInfo objListCarInfo1, CarInfo objListCarInfo2)
-        {
-            var resultBrandCar = objListCarInfo1.BrandCar.Equals(objListCarInfo2.BrandCar);
-            var resultModelCar = objListCarInfo1.ModelCar.Equals(objListCarInfo2.ModelCar);
-
-            return resultBrandCar && resultModelCar;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var bufer1 = int.Parse(comboBox1.SelectedItem.ToString());
-            var bufer2 = int.Parse(comboBox2.SelectedItem.ToString());
-            var result = Compare(listCarInfo[bufer1], listCarInfo[bufer2]);
+            var bufer1 = (int)comboBox1.SelectedItem;
+            var bufer2 = (int)comboBox2.SelectedItem;
+            var result = listCarInfo[bufer1].Equals(listCarInfo[bufer2]);
 
             textBox5.Text = result ? "Совпадают" : "is not!";
         }
 
-        private void button4_Click(object sender, EventArgs e) // ???
+        private void button4_Click(object sender, EventArgs e) 
         {
-            var connection = new SqlConnection(ConnectionString);
-
-            connection.Disposed += new EventHandler(conn_Disposed);
-            connection.StateChange += new StateChangeEventHandler(conn_StateChange);
-
-            var dataAdapter = new SqlDataAdapter(QueryString, connection);
-            var ds = new DataSet();
-
-            dataAdapter.Fill(ds);
+            var ds = DataProvider.GetCarInfo();
             dataGridView1.DataSource = ds.Tables[0].DefaultView;
-            connection.Dispose();
+            AdjustColumnOrder();
+
         }
 
-        private void conn_Disposed(object sender, EventArgs e)
+        private void AdjustColumnOrder()
         {
-            label2.Text += "Событие Dispose"; 
+            if (dataGridView1 == null)
+            {
+                return;
+            }
+
+            dataGridView1.Columns["Owner"].DisplayIndex = 0;
+            dataGridView1.Columns["LicenseNumber"].DisplayIndex = 1;
+            dataGridView1.Columns["CarId"].Visible = false;
+            dataGridView1.Columns["BrandAndModelId"].Visible = false;
+            dataGridView1.Columns["BAMId"].Visible = false;
+            dataGridView1.Columns["Brand"].DisplayIndex = 2;
+            dataGridView1.Columns["Model"].DisplayIndex = 3;
         }
 
-        private void conn_StateChange(object sender, StateChangeEventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-               label1.Text+="\nИсходное состояние: "+e.OriginalState.ToString() + "\n Текущее состояние: "+ e.CurrentState.ToString(); 
+
         }
 
-
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var form2 = new Form2();
+            form2.Show();
+        }
     }
-
 }

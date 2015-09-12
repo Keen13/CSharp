@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
-    public class CarInfo
+    public class BrandAndModel
     {
-        public BrandAndModel BrandAndModel { get; set; }
+        public string BrandCar { get; set; }
+
+        public string ModelCar { get; set; }
 
         public int Id { get; set; }
-
-        public string StateNumberCar { get; set; }
-
-        public string OwnerCar { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -23,13 +21,13 @@ namespace WindowsFormsApplication1
                 return false;
             }
 
-            var carInfo = (CarInfo)obj;
-            return BrandAndModel == carInfo.BrandAndModel;
+            var brandAndModel = (BrandAndModel)obj;
+            return (BrandCar == brandAndModel.BrandCar) && (ModelCar == brandAndModel.ModelCar);
         }
 
         public override int GetHashCode()
         {
-            return BrandAndModel.GetHashCode();
+            return BrandCar.GetHashCode() ^ ModelCar.GetHashCode();
         }
     }
 }
