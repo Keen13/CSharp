@@ -15,6 +15,9 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             DataProvider.UpdateBrandAndModel(_bindingSource);
+            var dataTable = DataProvider.GetBrandAndModel();
+            _bindingSource.DataSource = dataTable;
+            dataGridView1.DataSource = _bindingSource;
         }
 
         private void Form2_Load(object sender, EventArgs e)

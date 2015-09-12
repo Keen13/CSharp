@@ -6,7 +6,8 @@ namespace WindowsFormsApplication1
 {
     public class DataProvider
     {
-        private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Work\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
+        private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\zlodey\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
+        private const string BrandAndModelSelectCommand = "SELECT * from dbo.BrandAndModel";
 
         public static DataSet GetCarInfo()
         {
@@ -23,12 +24,11 @@ namespace WindowsFormsApplication1
 
         public static DataTable GetBrandAndModel()
         {
-            const string QueryString = "SELECT * from dbo.BrandAndModel";
             var table = new DataTable();
 
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var dataAdapter = new SqlDataAdapter(QueryString, connection);
+                var dataAdapter = new SqlDataAdapter(BrandAndModelSelectCommand, connection);
                 dataAdapter.Fill(table);
             }
 
@@ -37,15 +37,13 @@ namespace WindowsFormsApplication1
 
         public static void UpdateBrandAndModel(BindingSource bindingSource)
         {
-            const string QueryString = "SELECT * from dbo.BrandAndModel";
             bindingSource.EndEdit();
 
-            DataTable dt = (DataTable)bindingSource.DataSource;
-            DataTable changedTable = dt.GetChanges();
+            var dt = (DataTable)bindingSource.DataSource;
 
             using (var connection = new SqlConnection(ConnectionString))
             {
-                var dataAdapter = new SqlDataAdapter(QueryString, connection);
+                var dataAdapter = new SqlDataAdapter(BrandAndModelSelectCommand, connection);
                 dataAdapter.UpdateCommand = new SqlCommandBuilder(dataAdapter).GetUpdateCommand();
                 dataAdapter.Update(dt);
             }
