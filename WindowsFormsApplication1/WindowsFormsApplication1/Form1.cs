@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            RefreshDataGridView1();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -76,12 +76,16 @@ namespace WindowsFormsApplication1
             textBox5.Text = result ? "Совпадают" : "is not!";
         }
 
-        private void button4_Click(object sender, EventArgs e) 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            RefreshDataGridView1();
+        }
+
+        private void RefreshDataGridView1()
         {
             var ds = DataProvider.GetCarInfo();
             dataGridView1.DataSource = ds.Tables[0].DefaultView;
             AdjustColumnOrder();
-
         }
 
         private void AdjustColumnOrder()

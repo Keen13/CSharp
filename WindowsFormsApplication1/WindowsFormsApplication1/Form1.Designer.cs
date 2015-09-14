@@ -45,8 +45,6 @@
             this.sTOCarDataSet = new WindowsFormsApplication1.STOCarDataSet();
             this.sTOCarDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button4 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sTOCarDataSet)).BeginInit();
@@ -180,24 +178,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(676, 213);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(676, 194);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "label2";
-            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(12, 346);
@@ -212,8 +192,6 @@
             // 
             this.ClientSize = new System.Drawing.Size(981, 395);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox5);
@@ -256,8 +234,6 @@
         private System.Windows.Forms.BindingSource sTOCarDataSetBindingSource;
         private STOCarDataSet sTOCarDataSet;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button5;
  
     }
