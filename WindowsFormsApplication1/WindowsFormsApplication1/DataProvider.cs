@@ -8,6 +8,7 @@ namespace WindowsFormsApplication1
     {
         private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\zlodey\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
         private const string BrandAndModelSelectCommand = "SELECT * from dbo.BrandAndModel";
+        private const string WorkTypeSelectCommand = "SELECT * from dbo.WorkType";
 
         public static DataSet GetCarInfo()
         {
@@ -44,6 +45,33 @@ namespace WindowsFormsApplication1
             using (var connection = new SqlConnection(ConnectionString))
             {
                 var dataAdapter = new SqlDataAdapter(BrandAndModelSelectCommand, connection);
+                dataAdapter.UpdateCommand = new SqlCommandBuilder(dataAdapter).GetUpdateCommand();
+                dataAdapter.Update(dt);
+            }
+        }
+
+        public static DataTable GetWorkType()
+        {
+            var table = new DataTable();
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var dataAdapter = new SqlDataAdapter(WorkTypeSelectCommand, connection);
+                dataAdapter.Fill(table);
+            }
+
+            return table;
+        }
+
+        public static void UpdateWorkType(BindingSource bindingSource)
+        {
+            bindingSource.EndEdit();
+
+            var dt = (DataTable)bindingSource.DataSource;
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var dataAdapter = new SqlDataAdapter(WorkTypeSelectCommand, connection);
                 dataAdapter.UpdateCommand = new SqlCommandBuilder(dataAdapter).GetUpdateCommand();
                 dataAdapter.Update(dt);
             }
