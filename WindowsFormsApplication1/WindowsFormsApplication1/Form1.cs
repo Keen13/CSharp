@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace WindowsFormsApplication1
 {
@@ -31,25 +23,17 @@ namespace WindowsFormsApplication1
         {
             checkBox1.Checked = !checkBox1.Checked;
             listBox1.Items.Add("Success");
-            listCarInfo.Add(
-                new CarInfo
-                {
-                    BrandAndModel = new BrandAndModel
-                    {
-                        BrandCar = textBox1.Text, 
-                        ModelCar = textBox2.Text,
-                    },
-                    StateNumberCar = textBox3.Text,
-                    OwnerCar = textBox4.Text 
-                });
-
-            comboBox1.Items.Clear();
-            comboBox2.Items.Clear();
-            for (var i = 0; i < listCarInfo.Count; i++)
-            {
-                comboBox1.Items.Add(i);
-                comboBox2.Items.Add(i);
-            }
+            //listCarInfo.Add(
+            //    new CarInfo
+            //    {
+            //        BrandAndModel = new BrandAndModel
+            //        {
+            //            BrandCar = textBox1.Text, 
+            //            ModelCar = textBox2.Text,
+            //        },
+            //        StateNumberCar = textBox3.Text,
+            //        OwnerCar = textBox4.Text 
+            //    });
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -79,6 +63,7 @@ namespace WindowsFormsApplication1
         private void button4_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
+            textBox5.Text = dataGridView1["Brand", 1].Value.ToString();
         }
 
         private void RefreshDataGridView1()
@@ -86,6 +71,13 @@ namespace WindowsFormsApplication1
             var ds = DataProvider.GetCarInfo();
             dataGridView1.DataSource = ds.Tables[0].DefaultView;
             AdjustColumnOrder();
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            for (var i = 1; i < dataGridView1.RowCount + 1; i++)
+            {
+                comboBox1.Items.Add(i);
+                comboBox2.Items.Add(i);
+            }
         }
 
         private void AdjustColumnOrder()
