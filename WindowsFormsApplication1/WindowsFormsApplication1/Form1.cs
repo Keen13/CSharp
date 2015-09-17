@@ -63,7 +63,13 @@ namespace WindowsFormsApplication1
         private void button4_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
-            textBox5.Text = dataGridView1["Brand", 1].Value.ToString();
+
+            var dataSet = DataProvider.GetCarInfo();
+            
+            var row = dataSet.Tables[0].Rows[3];
+            textBox5.Text = row["Model"].ToString();
+            
+            //textBox5.Text = dataGridView1["Brand", 1].Value.ToString();
         }
 
         private void RefreshDataGridView1()
@@ -71,6 +77,7 @@ namespace WindowsFormsApplication1
             var ds = DataProvider.GetCarInfo();
             dataGridView1.DataSource = ds.Tables[0].DefaultView;
             AdjustColumnOrder();
+
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
             for (var i = 1; i < dataGridView1.RowCount + 1; i++)
