@@ -113,5 +113,12 @@ namespace WindowsFormsApplication1
             var form2 = new Form2();
             form2.Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var form3 = new Form3();
+            form3.Show();
+        }
+        
     }
 }
