@@ -22,7 +22,8 @@ namespace WindowsFormsApplication1
             FillDate();
             FillMaster();
             FillCar();
-            SetupDataGridView();
+            AddComboBoxColumns();
+
         }
 
         private void FillDate()
@@ -43,23 +44,52 @@ namespace WindowsFormsApplication1
         {
             var dataSet = DataProvider.GetCarInfo();
 
-            comboBox1.DataSource = dataSet.Tables[0];
-            //comboBox1.DisplayMember = "Model";
-            comboBox1.ValueMember = "Brand";
+            comboBox1.DataSource = dataSet.Tables[0].AsEnumerable().Select(dataRow => CreateCarInfo(dataRow)).ToList();
         }
 
-        private void SetupDataGridView()
+        private CarInfo CreateCarInfo(DataRow dataRow)
         {
-            dataGridView1.ColumnCount = 1;
-            dataGridView1.Columns[0].Name = "Список работ";
-            //DataGridView();
+            return new CarInfo
+            {
+                BrandAndModel = new BrandAndModel 
+                { 
+                    BrandCar = dataRow["Brand"].ToString(),
+                    ModelCar = dataRow["Model"].ToString() 
+                },
+                OwnerCar = dataRow["Owner"].ToString(),
+                StateNumberCar = dataRow["LicenseNumber"].ToString()
+            };
         }
 
-        private void DataGridView()
+        private DataGridViewComboBoxColumn CreateComboBoxColumn()
         {
-            var dataSet = DataProvider.GetWorkType();
+            var column = new DataGridViewComboBoxColumn();
+            {
+                column.HeaderText = "Список работ";
+                column.DropDownWidth = 160;
+                column.Width = 90;
+                column.MaxDropDownItems = 3;
+                column.FlatStyle = FlatStyle.Flat;
+            }
 
+            return column;
+        }
 
+        private void AddComboBoxColumns()
+        {
+            DataGridViewComboBoxColumn comboboxColumn;
+            comboboxColumn = CreateComboBoxColumn();
+            SetAlternateChoicesUsingDataSource(comboboxColumn);
+            dataGridView1.Columns.Insert(0, comboboxColumn);
+        }
+
+        private void SetAlternateChoicesUsingDataSource(DataGridViewComboBoxColumn comboboxColumn)
+        {
+            {
+                comboboxColumn.DataSource = DataProvider.GetWorkType();
+                comboboxColumn.ValueMember = "WorkType";
+                comboboxColumn.DisplayMember = comboboxColumn.ValueMember;
+            }
         }
     }
 }

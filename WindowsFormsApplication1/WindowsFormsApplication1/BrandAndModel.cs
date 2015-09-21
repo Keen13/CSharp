@@ -29,5 +29,10 @@ namespace WindowsFormsApplication1
         {
             return BrandCar.GetHashCode() ^ ModelCar.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return string.Format("{1} {0}", ModelCar, BrandCar);
+        }
     }
 }
