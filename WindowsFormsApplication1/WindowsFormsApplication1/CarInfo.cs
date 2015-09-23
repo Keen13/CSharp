@@ -31,5 +31,10 @@ namespace WindowsFormsApplication1
         {
             return BrandAndModel.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", BrandAndModel, StateNumberCar);
+        }
     }
 }
