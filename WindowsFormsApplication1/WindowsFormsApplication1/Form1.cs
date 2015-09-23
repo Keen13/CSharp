@@ -6,9 +6,6 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        List<CarInfo> listCarInfo = new List<CarInfo>();
-
-
         public Form1()
         {
             InitializeComponent();
@@ -19,47 +16,6 @@ namespace WindowsFormsApplication1
             RefreshDataGridView1();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            checkBox1.Checked = !checkBox1.Checked;
-            listBox1.Items.Add("Success");
-            //listCarInfo.Add(
-            //    new CarInfo
-            //    {
-            //        BrandAndModel = new BrandAndModel
-            //        {
-            //            BrandCar = textBox1.Text, 
-            //            ModelCar = textBox2.Text,
-            //        },
-            //        StateNumberCar = textBox3.Text,
-            //        OwnerCar = textBox4.Text 
-            //    });
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            var count = listCarInfo.Count;
-            listBox1.Items.Add(count);
-            listCarInfo.ForEach(PrintList);
-        }
-
-        private void PrintList(CarInfo objListCarInfo)
-        {
-
-            listBox1.Items.Add(string.Format("Марка {0} Модель {1} Госномер {2} Владелец {3}",
-                               objListCarInfo.BrandAndModel.BrandCar, objListCarInfo.BrandAndModel.ModelCar,
-                               objListCarInfo.StateNumberCar, objListCarInfo.OwnerCar));
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            var bufer1 = (int)comboBox1.SelectedItem;
-            var bufer2 = (int)comboBox2.SelectedItem;
-            var result = listCarInfo[bufer1].Equals(listCarInfo[bufer2]);
-
-            textBox5.Text = result ? "Совпадают" : "is not!";
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
@@ -68,8 +24,6 @@ namespace WindowsFormsApplication1
             
             var row = dataSet.Tables[0].Rows[3];
             textBox5.Text = row["Model"].ToString();
-            
-            //textBox5.Text = dataGridView1["Brand", 1].Value.ToString();
         }
 
         private void RefreshDataGridView1()
@@ -89,11 +43,6 @@ namespace WindowsFormsApplication1
 
         private void AdjustColumnOrder()
         {
-            if (dataGridView1 == null)
-            {
-                return;
-            }
-
             dataGridView1.Columns["Owner"].DisplayIndex = 0;
             dataGridView1.Columns["LicenseNumber"].DisplayIndex = 1;
             dataGridView1.Columns["CarId"].Visible = false;

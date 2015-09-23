@@ -61,6 +61,14 @@ namespace WindowsFormsApplication1
             };
         }
 
+        private void AddComboBoxColumns()
+        {
+            DataGridViewComboBoxColumn comboboxColumn;
+            comboboxColumn = CreateComboBoxColumn();
+            SetAlternateChoicesUsingDataSource(comboboxColumn);
+            dataGridView1.Columns.Insert(0, comboboxColumn);
+        }
+
         private DataGridViewComboBoxColumn CreateComboBoxColumn()
         {
             var column = new DataGridViewComboBoxColumn();
@@ -73,14 +81,6 @@ namespace WindowsFormsApplication1
             }
 
             return column;
-        }
-
-        private void AddComboBoxColumns()
-        {
-            DataGridViewComboBoxColumn comboboxColumn;
-            comboboxColumn = CreateComboBoxColumn();
-            SetAlternateChoicesUsingDataSource(comboboxColumn);
-            dataGridView1.Columns.Insert(0, comboboxColumn);
         }
 
         private void SetAlternateChoicesUsingDataSource(DataGridViewComboBoxColumn comboboxColumn)
