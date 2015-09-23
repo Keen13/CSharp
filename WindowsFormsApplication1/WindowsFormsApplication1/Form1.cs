@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -18,12 +17,12 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            RefreshDataGridView1();
-
             var dataSet = DataProvider.GetCarInfo();
-            
-            var row = dataSet.Tables[0].Rows[3];
+            var comparedObj1 = (int)comboBox1.SelectedItem;
+            //var comparedObj2 = (int)comboBox2.SelectedItem;
+            var row = dataSet.Tables[0].Rows[comparedObj1];
             textBox5.Text = row["Model"].ToString();
+            RefreshDataGridView1();
         }
 
         private void RefreshDataGridView1()
@@ -34,7 +33,7 @@ namespace WindowsFormsApplication1
 
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
-            for (var i = 1; i < dataGridView1.RowCount + 1; i++)
+            for (var i = 0; i < dataGridView1.RowCount; i++)
             {
                 comboBox1.Items.Add(i);
                 comboBox2.Items.Add(i);
