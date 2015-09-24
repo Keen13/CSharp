@@ -37,22 +37,7 @@ namespace WindowsFormsApplication1
         private void FillCar()
         {
             var dataSet = DataProvider.GetCarInfo();
-
-            comboBox1.DataSource = dataSet.Tables[0].AsEnumerable().Select(dataRow => CreateCarInfo(dataRow)).ToList();
-        }
-
-        private CarInfo CreateCarInfo(DataRow dataRow)
-        {
-            return new CarInfo
-            {
-                BrandAndModel = new BrandAndModel 
-                { 
-                    BrandCar = dataRow["Brand"].ToString(),
-                    ModelCar = dataRow["Model"].ToString() 
-                },
-                OwnerCar = dataRow["Owner"].ToString(),
-                StateNumberCar = dataRow["LicenseNumber"].ToString()
-            };
+            comboBox1.DataSource = dataSet.Tables[0].AsEnumerable().Select(dataRow => new CarInfo(dataRow)).ToList();
         }
 
         private void AddComboBoxColumns()

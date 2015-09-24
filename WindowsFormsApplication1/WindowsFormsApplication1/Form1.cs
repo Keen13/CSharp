@@ -18,10 +18,14 @@ namespace WindowsFormsApplication1
         private void button4_Click(object sender, EventArgs e)
         {
             var dataSet = DataProvider.GetCarInfo();
-            var comparedObj1 = (int)comboBox1.SelectedItem;
-            //var comparedObj2 = (int)comboBox2.SelectedItem;
-            var row = dataSet.Tables[0].Rows[comparedObj1];
-            textBox5.Text = row["Model"].ToString();
+            var numberComparedObj1 = (int)comboBox1.SelectedItem - 1;
+            var numberComparedObj2 = (int)comboBox2.SelectedItem - 1;
+
+            var comparedObj1 = new CarInfo(dataSet.Tables[0].Rows[numberComparedObj1]);
+            var comparedObj2 = new CarInfo(dataSet.Tables[0].Rows[numberComparedObj2]);
+
+            textBox5.Text = comparedObj1.Equals(comparedObj2).ToString();
+
             RefreshDataGridView1();
         }
 
@@ -33,11 +37,14 @@ namespace WindowsFormsApplication1
 
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
-            for (var i = 0; i < dataGridView1.RowCount; i++)
+            for (var i = 1; i < dataGridView1.RowCount; i++)
             {
                 comboBox1.Items.Add(i);
                 comboBox2.Items.Add(i);
             }
+
+            comboBox1.Text = "1";
+            comboBox2.Text = "1";
         }
 
         private void AdjustColumnOrder()
@@ -49,11 +56,6 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["BAMId"].Visible = false;
             dataGridView1.Columns["Brand"].DisplayIndex = 2;
             dataGridView1.Columns["Model"].DisplayIndex = 3;
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void button5_Click(object sender, EventArgs e)

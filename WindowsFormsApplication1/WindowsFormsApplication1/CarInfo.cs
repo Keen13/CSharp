@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿using System.Data;
+
+namespace WindowsFormsApplication1
 {
     public class CarInfo
     {
@@ -10,6 +12,17 @@
 
         public string OwnerCar { get; set; }
 
+        public CarInfo(DataRow dataRow)
+        {
+            BrandAndModel = new BrandAndModel
+            {
+                BrandCar = dataRow["Brand"].ToString(),
+                ModelCar = dataRow["Model"].ToString()
+            };
+            OwnerCar = dataRow["Owner"].ToString();
+            StateNumberCar = dataRow["LicenseNumber"].ToString();
+        }
+        
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -18,7 +31,7 @@
             }
 
             var carInfo = (CarInfo)obj;
-            return BrandAndModel == carInfo.BrandAndModel;
+            return BrandAndModel.Equals(carInfo.BrandAndModel);
         }
 
         public override int GetHashCode()
