@@ -55,8 +55,10 @@ namespace WindowsFormsApplication1
                 column.HeaderText = "Список работ";
                 column.DropDownWidth = 160;
                 column.Width = 90;
+                column.MinimumWidth = 160;
                 column.MaxDropDownItems = 3;
                 column.FlatStyle = FlatStyle.Flat;
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             }
 
             return column;

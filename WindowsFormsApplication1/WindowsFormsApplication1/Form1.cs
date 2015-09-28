@@ -69,6 +69,5 @@ namespace WindowsFormsApplication1
             var form3 = new Form3();
             form3.Show();
         }
-        
     }
 }
