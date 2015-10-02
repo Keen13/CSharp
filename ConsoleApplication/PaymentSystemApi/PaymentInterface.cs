@@ -1,14 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PaymentSystemApi
 {
     public class PaymentInterface
     {
-        private const string BankId1 = "VMPX";
-        private const string BankId2 = "OBRX";
-        private const string BankId3 = "SBRX";
-
         private const decimal MinimalCommission = 10;
         private const decimal MediumCommission = 30;
         private const decimal MaximumCommission = 110;
@@ -17,17 +16,23 @@ namespace PaymentSystemApi
 
         private const decimal MaximumPercent = 0.03m;
         private const decimal MediumPercent = 0.02m;
-        private const decimal MinimalPercent = 0.01m;
+        private const decimal MinimalPercent = 0.01m; 
 
         private const int OneBarrierRemittance = 1000;
         private const int TowBarrierRemittance = 5000;
 
         private UserInputData _data;
 
+        private static readonly List<Bank> ListBanks = new List<Bank>(); 
+
         public void Run()
         {
             _data = new UserInputData();
 
+            ListBanks.Add(new Bank { BankId = "VMPX", BankName = "Банк Вампириал" });
+            ListBanks.Add(new Bank { BankId = "OBRX", BankName = "Банк Обирон" });
+            ListBanks.Add(new Bank { BankId = "SBRX", BankName = "Сбербанк России" });
+            
             while (true)
             {
                 var selectUser = SelectUser();
@@ -49,9 +54,14 @@ namespace PaymentSystemApi
             }
         }
 
-        private static string SelectUser() 
+        private static string SelectUser() //////////////////////////////////////////
         {
-            Console.WriteLine("Выбирите ваш бак: \n1)Банк Вампириал \n2)Банк Обирон \n3)Сбербанк России");
+            Console.WriteLine("Выбирите ваш бак:");
+            for (var i = 1; i < ListBanks.Count + 1; i++)
+            {
+                Console.WriteLine("{1}) {0}", ListBanks[(i - 1)].BankName, i);
+            }
+            
             var keyInfo = Console.ReadKey(true);
             const ConsoleKey KeyExit = ConsoleKey.Escape;
 
@@ -84,18 +94,14 @@ namespace PaymentSystemApi
 
         private static string ChooseBank(string number)
         {
-            switch (number)
+            var numberParse = int.Parse(number) - 1;
+            if (numberParse <= ListBanks.Count)
             {
-                case "1":
-                    return BankId1;
-                case "2":
-                    return BankId2;
-                case "3":
-                    return BankId3;
-                default:
-                    Console.WriteLine("Выбирите один из представленных банков \n");
-                    return "0";
+                return ListBanks[numberParse].BankId;
             }
+
+            Console.WriteLine("Выбирите один из представленных банков \n");
+            return "0";
         }
 
         private void InsideMenu()
