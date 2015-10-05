@@ -37,7 +37,7 @@ namespace PaymentSystemApi
             {
                 var selectUser = SelectUser();
                 
-                if (selectUser == "4")
+                if (selectUser == "0")
                 {
                     break;
                 }
@@ -56,46 +56,39 @@ namespace PaymentSystemApi
 
         private static string SelectUser() //////////////////////////////////////////
         {
-            Console.WriteLine("Выбирите ваш бак:");
-            for (var i = 1; i < ListBanks.Count + 1; i++)
+            Console.WriteLine("Выбирите ваш банк или нажмите 0 для выхода");
+            for (var i = 1; i <= ListBanks.Count; i++)
             {
                 Console.WriteLine("{1}) {0}", ListBanks[(i - 1)].BankName, i);
             }
-            
-            var keyInfo = Console.ReadKey(true);
-            const ConsoleKey KeyExit = ConsoleKey.Escape;
 
-            if (keyInfo.Key == ConsoleKey.D1)
+            var menuItem = ReadMenuItem();
+            if (menuItem != 0 && menuItem <= ListBanks.Count)
             {
-                Console.WriteLine("выбран пункт 1");
-                return "1";
+                return menuItem.ToString();
             }
 
-            if (keyInfo.Key == ConsoleKey.D2)
+            return menuItem == 0 ? "0" : "is not";
+        }
+
+        private static int ReadMenuItem()
+        {
+            var pattern = new Regex(@"^\d{1,2}$");
+            var menuItem = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(menuItem) && pattern.IsMatch(menuItem))
             {
-                Console.WriteLine("выбран пункт 2");
-                return "2";
-            }
-            
-            if (keyInfo.Key == ConsoleKey.D3)
-            {
-                Console.WriteLine("выбран пункт 3");
-                return "3";
+                return int.Parse(menuItem);
             }
 
-            if (keyInfo.Key == KeyExit)
-            {
-                Console.WriteLine("Спасибо!");
-                return "4";
-            }
-
-            return "is not";
+            Console.WriteLine("Нет такого пункта меню");
+            return 0;
         }
 
         private static string ChooseBank(string number)
         {
             var numberParse = int.Parse(number) - 1;
-            if (numberParse <= ListBanks.Count)
+            if (numberParse < ListBanks.Count)
             {
                 return ListBanks[numberParse].BankId;
             }
