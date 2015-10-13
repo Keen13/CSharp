@@ -15,17 +15,6 @@ namespace WindowsFormsApplication3
 {
     public partial class Form1 : Form
     {
-        //public event EventHandler Activated;
-
-        //protected virtual void OnActivated()
-        //{
-        //    var handler = Activated;
-        //    if (handler != null)
-        //    {
-        //        handler(this, EventArgs.Empty);
-        //    }
-        //}
-
         public Form1()
         {
             InitializeComponent();
@@ -43,10 +32,6 @@ namespace WindowsFormsApplication3
         private void button1_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
-            if (AuthorizationData.Status)
-            {
-                dataGridView1.Show();
-            }
         }
 
         private void RefreshDataGridView1()
@@ -65,6 +50,7 @@ namespace WindowsFormsApplication3
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var form2 = new Form2();
+            form2.Owner = this;
             form2.ShowDialog();
         }
     }
