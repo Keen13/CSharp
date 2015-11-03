@@ -32,14 +32,30 @@ namespace WindowsFormsApplication3
         private void button1_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
+            
+            AuthorizationData.Status = true;
+            dataGridView1.Show();
         }
 
         private void RefreshDataGridView1()
         {
             var ds = DataProvider.GetCallBack();
-            dataGridView1.DataSource = ds.Tables[0].DefaultView;
+
+            var table = new DataTable();
+            table = ds.Tables[0];
+            table.DefaultView.RowFilter = "status = 'no'";
+            dataGridView1.DataSource = table.DefaultView;
+           
             AdjustColumnOrder();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            comboBox1.Items.Clear();
+            var numberRows = ds.Tables[0].Rows.Count;
+            for (var i = 0; i < numberRows; i++)
+            {
+                comboBox1.Items.Add(i);
+            }
+
+            comboBox1.SelectedIndex = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,6 +68,11 @@ namespace WindowsFormsApplication3
             var form2 = new Form2();
             form2.Owner = this;
             form2.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.RemoveAt(comboBox1.SelectedIndex);
         }
     }
 }

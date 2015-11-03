@@ -12,6 +12,8 @@ namespace WindowsFormsApplication3
     {
         public static bool Status { get; set; }
 
+        public static string User { get; set; }
+
         //public static void Authorization()
         //{
         //    var dataSet = DataProvider.GetAuthorizationData();
@@ -35,6 +37,7 @@ namespace WindowsFormsApplication3
             if (foundRow != null && pass == foundRow["pass"].ToString())
             {
                 Status = true;
+                User = login;
                 MessageBox.Show(foundRow["user"].ToString());
             }
             else
