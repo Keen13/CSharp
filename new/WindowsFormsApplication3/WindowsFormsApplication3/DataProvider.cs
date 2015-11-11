@@ -10,6 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApplication3
 {
+    //TODO VS: отдельный класс провайдера данных - это круто.  строка соединения хардкодом в  коде - не круто.
     public class DataProvider
     {
         private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
@@ -17,7 +18,7 @@ namespace WindowsFormsApplication3
 
         public static DataSet GetCallBack()
         {
-            const string QueryString = "SELECT * from callback.callback";
+            const string QueryString = "SELECT * from callback.callback";            
             var ds = new DataSet();
             using (var connection = new MySqlConnection(ConnectionString))
             {
@@ -30,7 +31,8 @@ namespace WindowsFormsApplication3
 
         public static DataSet GetAuthorizationData()
         {
-            const string QueryString = "SELECT * from callback.authorization";
+            const string QueryString = "SELECT * from callback.authorization"; //TODO VS:  зачем ты выгребаешь всю таблицу каждый раз?
+            // у тебя уже есть имя и пароль,  делай выборку по ним - либо в таблицк есть такая строка, либо нет
             var ds = new DataSet();
             using (var connection = new MySqlConnection(ConnectionString))
             {

@@ -24,9 +24,12 @@ namespace WindowsFormsApplication3
         //    }
         //}
 
+        //TODO VS: Вроде бы понятно  - этот класс у тебя служит для получения данных из таблицы пользователей и сравнения с введенными.
+        // Тогда возникает вопрос к самому классу - зачем ты хранишь Status и User в этом классе? они тебе нужны только при проверке
+        //  передавай пользователя в параметрах вызова, статус возвращай из метода.
         public static void ComparisonLoginPass(string login, string pass)
         {
-            var dataSet = DataProvider.GetAuthorizationData();
+            var dataSet = DataProvider.GetAuthorizationData(); //TODO VS: см комменты в классе
 
             var table = new DataTable();
             table = dataSet.Tables[0];
@@ -44,6 +47,8 @@ namespace WindowsFormsApplication3
             {
                 Status = false;
                 MessageBox.Show("A row with the primary key of " + login + " could not be found");
+                //TODO VS: что за странное такое сообщение? если оно тебе для отладки нужно, то пофиг, а если  пользователю показывать,
+                //  то оно и должно предназначться для пользователя, а не для технического специалиста
             }
         }
     }

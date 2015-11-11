@@ -39,9 +39,9 @@ namespace WindowsFormsApplication3
 
         private void RefreshDataGridView1()
         {
-            var ds = DataProvider.GetCallBack();
+            var ds = DataProvider.GetCallBack(); 
 
-            var table = new DataTable();
+            var table = new DataTable(); 
             table = ds.Tables[0];
             table.DefaultView.RowFilter = "status = 'no'";
             dataGridView1.DataSource = table.DefaultView;
@@ -52,7 +52,7 @@ namespace WindowsFormsApplication3
             var numberRows = ds.Tables[0].Rows.Count;
             for (var i = 0; i < numberRows; i++)
             {
-                comboBox1.Items.Add(i);
+                comboBox1.Items.Add(i); //TODO VS: почему ты так  заполняешь значения для  комбобокса, а не пользуешься связыванием с источником данных (binding)?
             }
 
             comboBox1.SelectedIndex = 0;
@@ -73,6 +73,8 @@ namespace WindowsFormsApplication3
         private void button2_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.RemoveAt(comboBox1.SelectedIndex);
+            // TODO VS: то  есть, ты сначала выбираешь в выпадающем списке, какую строку удалить из показа, а потом ее удаляешь?
+            // почему не  воспользоваться возможностями таблицы и не удалять строки прямо из нее? или не удалять  выделенную строку/пачку строк?
         }
     }
 }
