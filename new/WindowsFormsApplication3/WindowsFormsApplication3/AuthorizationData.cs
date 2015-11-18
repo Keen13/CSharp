@@ -46,9 +46,7 @@ namespace WindowsFormsApplication3
             else
             {
                 Status = false;
-                MessageBox.Show("A row with the primary key of " + login + " could not be found");
-                //TODO VS: что за странное такое сообщение? если оно тебе для отладки нужно, то пофиг, а если  пользователю показывать,
-                //  то оно и должно предназначться для пользователя, а не для технического специалиста
+                MessageBox.Show("A row with the primary key of " + login + " could not be found"); //для отладки.
             }
         }
     }

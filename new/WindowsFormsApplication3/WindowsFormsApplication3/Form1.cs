@@ -27,6 +27,7 @@ namespace WindowsFormsApplication3
             dataGridView1.Columns["id"].Visible = false;
             dataGridView1.Columns["number"].DisplayIndex = 0;
             dataGridView1.Columns["Date"].DisplayIndex = 1;
+            dataGridView1.AllowUserToAddRows = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,14 +49,6 @@ namespace WindowsFormsApplication3
            
             AdjustColumnOrder();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            comboBox1.Items.Clear();
-            var numberRows = ds.Tables[0].Rows.Count;
-            for (var i = 0; i < numberRows; i++)
-            {
-                comboBox1.Items.Add(i); //TODO VS: почему ты так  заполняешь значения для  комбобокса, а не пользуешься связыванием с источником данных (binding)?
-            }
-
-            comboBox1.SelectedIndex = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -72,9 +65,14 @@ namespace WindowsFormsApplication3
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.RemoveAt(comboBox1.SelectedIndex);
-            // TODO VS: то  есть, ты сначала выбираешь в выпадающем списке, какую строку удалить из показа, а потом ее удаляешь?
-            // почему не  воспользоваться возможностями таблицы и не удалять строки прямо из нее? или не удалять  выделенную строку/пачку строк?
+            if (dataGridView1.CurrentRow == null)
+            {
+                return;
+            }
+
+            var rowIndex = dataGridView1.CurrentRow.Index;
+            var newStatus = (DataGridViewTextBoxCell)dataGridView1.Rows[rowIndex].Cells["status"];
+            newStatus.Value = "yes";
         }
     }
 }
