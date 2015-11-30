@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Configuration;
+using System.Collections;
+
 using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApplication3
@@ -14,7 +17,7 @@ namespace WindowsFormsApplication3
     public class DataProvider
     {
         private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
-        //private const string QueryString = "SELECT * from callback.callback";
+//        private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\z1\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
 
         public static DataSet GetCallBack()
         {
@@ -29,10 +32,9 @@ namespace WindowsFormsApplication3
             return ds;
         }
 
-        public static DataSet GetAuthorizationData()
+        public static DataSet GetAuthorizationData(string login, string pass)
         {
-            const string QueryString = "SELECT * from callback.authorization"; //TODO VS:  зачем ты выгребаешь всю таблицу каждый раз?
-            // у тебя уже есть имя и пароль,  делай выборку по ним - либо в таблицк есть такая строка, либо нет
+            string QueryString = "SELECT * from callback.authorization where user='" + login + "' and pass='" + pass + "'"; 
             var ds = new DataSet();
             using (var connection = new MySqlConnection(ConnectionString))
             {

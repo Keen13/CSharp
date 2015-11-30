@@ -10,26 +10,9 @@ namespace WindowsFormsApplication3
 {
     public static class AuthorizationData
     {
-        public static bool Status { get; set; }
-
-        public static string User { get; set; }
-
-        //public static void Authorization()
-        //{
-        //    var dataSet = DataProvider.GetAuthorizationData();
-        //    var result = dataSet.Tables[0].Rows[0]["user"].ToString();
-        //    if (result == "root")
-        //    {
-        //        Status = true;
-        //    }
-        //}
-
-        //TODO VS: Вроде бы понятно  - этот класс у тебя служит для получения данных из таблицы пользователей и сравнения с введенными.
-        // Тогда возникает вопрос к самому классу - зачем ты хранишь Status и User в этом классе? они тебе нужны только при проверке
-        //  передавай пользователя в параметрах вызова, статус возвращай из метода.
-        public static void ComparisonLoginPass(string login, string pass)
+        public static bool ComparisonLoginPass(string login, string pass)
         {
-            var dataSet = DataProvider.GetAuthorizationData(); //TODO VS: см комменты в классе
+            var dataSet = DataProvider.GetAuthorizationData(login, pass); 
 
             var table = new DataTable();
             table = dataSet.Tables[0];
@@ -39,14 +22,13 @@ namespace WindowsFormsApplication3
 
             if (foundRow != null && pass == foundRow["pass"].ToString())
             {
-                Status = true;
-                User = login;
                 MessageBox.Show(foundRow["user"].ToString());
+                return true;
             }
             else
             {
-                Status = false;
                 MessageBox.Show("A row with the primary key of " + login + " could not be found"); //для отладки.
+                return false;
             }
         }
     }

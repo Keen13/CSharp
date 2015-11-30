@@ -20,6 +20,7 @@ namespace WindowsFormsApplication3
             InitializeComponent();
             RefreshDataGridView1();
             dataGridView1.Hide();
+            button1.Visible = false;
         }
 
         private void AdjustColumnOrder()
@@ -33,8 +34,6 @@ namespace WindowsFormsApplication3
         private void button1_Click(object sender, EventArgs e)
         {
             RefreshDataGridView1();
-            
-            AuthorizationData.Status = true;
             dataGridView1.Show();
         }
 

@@ -15,20 +15,18 @@ namespace WindowsFormsApplication3
         public Form2()
         {
             InitializeComponent();
-            AuthorizationData.Status = false;  //////////////где это прописать... // TODO VS: А что это такое? что этот класс  и это поле означают /делают?
+            //AuthorizationData.Status = false;  //////////////где это прописать... // TODO VS: А что это такое? что этот класс  и это поле означают /делают?
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var login = loginTextBox.Text; 
             var pass = passwordTextBox.Text;
-            AuthorizationData.ComparisonLoginPass(login, pass); // TODO VS: см. комментарий в классе AuthorizationData
-            //AuthorizationData.Status = true;
-            var result = AuthorizationData.Status;
-            if (result)
+            if (AuthorizationData.ComparisonLoginPass(login, pass))
             {
                 var form1 = Owner as Form1;
-                form1.dataGridView1.Show(); 
+                form1.dataGridView1.Show();
+                form1.button1.Visible = true;
                 Close();
             }
         }
