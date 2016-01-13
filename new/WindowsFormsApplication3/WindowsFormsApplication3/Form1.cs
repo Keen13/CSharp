@@ -43,7 +43,16 @@ namespace WindowsFormsApplication3
 
             var table = new DataTable(); 
             table = ds.Tables[0];
-            table.DefaultView.RowFilter = "status = 'no'";
+
+            if (checkWotchStatus.Checked)
+            {
+                table.DefaultView.RowFilter = "status = 'no'";
+            }
+            else
+            {
+                table.DefaultView.RowFilter = "status > ''";
+            }
+            
             dataGridView1.DataSource = table.DefaultView;
            
             AdjustColumnOrder();
@@ -53,13 +62,6 @@ namespace WindowsFormsApplication3
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            var form2 = new Form2();
-            form2.Owner = this;
-            form2.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -72,6 +74,20 @@ namespace WindowsFormsApplication3
             var rowIndex = dataGridView1.CurrentRow.Index;
             var newStatus = (DataGridViewTextBoxCell)dataGridView1.Rows[rowIndex].Cells["status"];
             newStatus.Value = "yes";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var login = loginTextBox.Text;
+            var pass = passwordTextBox.Text;
+            if (AuthorizationData.ComparisonLoginPass(login, pass))
+            {
+                dataGridView1.Show();
+                button1.Visible = true;
+                loginTextBox.Hide();
+                passwordTextBox.Hide();
+                buttonAuthorization.Visible = false;
+            }
         }
     }
 }

@@ -31,18 +31,17 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
+            this.checkWotchStatus = new System.Windows.Forms.CheckBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.loginTextBox = new System.Windows.Forms.TextBox();
+            this.buttonAuthorization = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(388, 410);
+            this.button1.Location = new System.Drawing.Point(388, 392);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -53,52 +52,22 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(451, 354);
             this.dataGridView1.TabIndex = 1;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(475, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(53, 20);
-            this.toolStripMenuItem1.Text = "Меню";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 22);
-            this.toolStripMenuItem2.Text = "Авторизоваться";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(161, 22);
-            this.toolStripMenuItem3.Text = "Выход";
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 410);
+            this.button2.Location = new System.Drawing.Point(12, 390);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -106,11 +75,49 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // checkWotchStatus
+            // 
+            this.checkWotchStatus.AutoSize = true;
+            this.checkWotchStatus.Location = new System.Drawing.Point(123, 396);
+            this.checkWotchStatus.Name = "checkWotchStatus";
+            this.checkWotchStatus.Size = new System.Drawing.Size(80, 17);
+            this.checkWotchStatus.TabIndex = 5;
+            this.checkWotchStatus.Text = "checkBox1";
+            this.checkWotchStatus.UseVisualStyleBackColor = true;
+            // 
+            // passwordTextBox
+            // 
+            this.passwordTextBox.Location = new System.Drawing.Point(171, 156);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.Size = new System.Drawing.Size(100, 20);
+            this.passwordTextBox.TabIndex = 8;
+            // 
+            // loginTextBox
+            // 
+            this.loginTextBox.Location = new System.Drawing.Point(171, 129);
+            this.loginTextBox.Name = "loginTextBox";
+            this.loginTextBox.Size = new System.Drawing.Size(100, 20);
+            this.loginTextBox.TabIndex = 7;
+            // 
+            // buttonAuthorization
+            // 
+            this.buttonAuthorization.Location = new System.Drawing.Point(171, 194);
+            this.buttonAuthorization.Name = "buttonAuthorization";
+            this.buttonAuthorization.Size = new System.Drawing.Size(99, 23);
+            this.buttonAuthorization.TabIndex = 6;
+            this.buttonAuthorization.Text = "Авторизоваться";
+            this.buttonAuthorization.UseVisualStyleBackColor = true;
+            this.buttonAuthorization.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 445);
+            this.ClientSize = new System.Drawing.Size(475, 420);
+            this.Controls.Add(this.passwordTextBox);
+            this.Controls.Add(this.loginTextBox);
+            this.Controls.Add(this.buttonAuthorization);
+            this.Controls.Add(this.checkWotchStatus);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
@@ -119,8 +126,6 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,11 +136,11 @@
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.DataGridView dataGridView1; ///////////////так можно?
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkWotchStatus;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox loginTextBox;
+        private System.Windows.Forms.Button buttonAuthorization;
     }
 }
 

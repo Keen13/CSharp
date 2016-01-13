@@ -17,7 +17,7 @@ namespace WindowsFormsApplication3
     public class DataProvider
     {
         private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
-//        private const string ConnectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=D:\z1\CSharp\WindowsFormsApplication1\WindowsFormsApplication1\STOCar.mdf;Integrated Security=True";
+        //ConnectionStringSettings ConnectionString = ConfigurationManager.ConnectionStrings[connectionString];
 
         public static DataSet GetCallBack()
         {
