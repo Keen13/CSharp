@@ -44,5 +44,20 @@ namespace WindowsFormsApplication3
 
             return ds;
         }
+
+        //public static void UpdateCallBack(BindingSource bindingSource)
+        //{
+        //    const string QueryString = "SELECT * from callback.callback";
+        //    bindingSource.EndEdit();
+
+        //    var dt = (DataTable)bindingSource.DataSource;
+
+        //    using (var connection = new MySqlConnection(ConnectionString))
+        //    {
+        //        var dataAdapter = new MySqlDataAdapter(QueryString, connection);
+        //        dataAdapter.UpdateCommand = new MySqlCommandBuilder(dataAdapter).GetUpdateCommand();
+        //        dataAdapter.Update(dt);
+        //    }
+        //}
     }
 }
