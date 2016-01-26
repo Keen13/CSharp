@@ -6,18 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Configuration;
 using System.Collections;
+using System.Configuration;
 
 using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApplication3
 {
-    //TODO VS: отдельный класс провайдера данных - это круто.  строка соединения хардкодом в  коде - не круто.
     public class DataProvider
     {
-        private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
-        //ConnectionStringSettings ConnectionString = ConfigurationManager.ConnectionStrings[connectionString];
+        //private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
+        static string ConnectionString = ConfigurationManager.ConnectionStrings["CallBack"].ConnectionString;
 
         public static DataSet GetCallBack()
         {
@@ -45,19 +44,19 @@ namespace WindowsFormsApplication3
             return ds;
         }
 
-        //public static void UpdateCallBack(BindingSource bindingSource)
-        //{
-        //    const string QueryString = "SELECT * from callback.callback";
-        //    bindingSource.EndEdit();
+        public static void UpdateCallBack(BindingSource bindingSource)
+        {
+            const string QueryString = "SELECT * from callback.callback";
+            bindingSource.EndEdit();
 
-        //    var dt = (DataTable)bindingSource.DataSource;
+            var ds = (DataSet)bindingSource.DataSource;
 
-        //    using (var connection = new MySqlConnection(ConnectionString))
-        //    {
-        //        var dataAdapter = new MySqlDataAdapter(QueryString, connection);
-        //        dataAdapter.UpdateCommand = new MySqlCommandBuilder(dataAdapter).GetUpdateCommand();
-        //        dataAdapter.Update(dt);
-        //    }
-        //}
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                var dataAdapter = new MySqlDataAdapter(QueryString, connection);
+                dataAdapter.UpdateCommand = new MySqlCommandBuilder(dataAdapter).GetUpdateCommand();
+                dataAdapter.Update(ds);
+            }
+        }
     }
 }
