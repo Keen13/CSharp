@@ -15,6 +15,8 @@ namespace WindowsFormsApplication3
 {
     public partial class Form1 : Form
     {
+        private BindingSource bindingSource;
+        
         public Form1()
         {
             InitializeComponent();
@@ -39,21 +41,20 @@ namespace WindowsFormsApplication3
 
         private void RefreshDataGridView1()
         {
-            var ds = DataProvider.GetCallBack(); 
-
-            var table = new DataTable(); 
-            table = ds.Tables[0];
+            var dataTable = DataProvider.GetCallBackData();
+            bindingSource = new BindingSource();
+            
+            bindingSource.DataSource = dataTable;
+            dataGridView1.DataSource = bindingSource;
 
             if (checkWotchStatus.Checked)
             {
-                table.DefaultView.RowFilter = "status = 'no'";
+                dataTable.DefaultView.RowFilter = "status = 'no'";
             }
             else
             {
-                table.DefaultView.RowFilter = "status > ''";
+                dataTable.DefaultView.RowFilter = "status > ''";
             }
-            
-            dataGridView1.DataSource = table.DefaultView;
            
             AdjustColumnOrder();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -74,6 +75,7 @@ namespace WindowsFormsApplication3
             var rowIndex = dataGridView1.CurrentRow.Index;
             var newStatus = (DataGridViewTextBoxCell)dataGridView1.Rows[rowIndex].Cells["status"];
             newStatus.Value = "yes";
+            DataProvider.UpdateCallBack(bindingSource);
         }
 
         private void button3_Click(object sender, EventArgs e)

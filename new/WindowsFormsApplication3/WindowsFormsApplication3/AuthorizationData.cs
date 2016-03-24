@@ -22,12 +22,12 @@ namespace WindowsFormsApplication3
 
             if (foundRow != null && pass == foundRow["pass"].ToString())
             {
-                MessageBox.Show(foundRow["user"].ToString());
+                //MessageBox.Show(foundRow["user"].ToString());
                 return true;
             }
             else
             {
-                MessageBox.Show("A row with the primary key of " + login + " could not be found"); //для отладки.
+                //MessageBox.Show("A row with the primary key of " + login + " could not be found"); //для отладки.
                 return false;
             }
         }

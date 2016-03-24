@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SearchMovies.Models.Movies>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h3>Поиск фильмов</h3>
+    <table>
+        <tr class="header">
+            <td><p>Название фильма</p></td>
+            <td><p>Жанр</p></td>
+            <td><p>Актеры</p></td>
+            <td></td>
+        </tr>
+        @foreach (SearchMovies.Models.Movies b in Model)
+        {
+            <tr>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.Genre</p></td>
+                <td><p>@b.ListActors</p></td>
+                <td><p><a href="/Home/Buy/@b.MoviesId">Купить</a></p></td>
+            </tr>
+        }
+    </table>
+</div>

@@ -10,6 +10,7 @@ using System.Collections;
 using System.Configuration;
 
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication3
 {
@@ -18,17 +19,18 @@ namespace WindowsFormsApplication3
         //private const string ConnectionString = @"Database=callback; Data Source=hoster.hitek.ru; User Id=callback; Password=c9PuRNNAZ7hQ8see";
         static string ConnectionString = ConfigurationManager.ConnectionStrings["CallBack"].ConnectionString;
 
-        public static DataSet GetCallBack()
+        public static DataTable GetCallBackData()
         {
-            const string QueryString = "SELECT * from callback.callback";            
-            var ds = new DataSet();
+            const string QueryString = "SELECT * from callback.callback";
+            var table = new DataTable();
             using (var connection = new MySqlConnection(ConnectionString))
             {
                 var dataAdapter = new MySqlDataAdapter(QueryString, connection);
-                dataAdapter.Fill(ds);
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                dataAdapter.Fill(table);
             }
 
-            return ds;
+            return table;
         }
 
         public static DataSet GetAuthorizationData(string login, string pass)
@@ -46,16 +48,15 @@ namespace WindowsFormsApplication3
 
         public static void UpdateCallBack(BindingSource bindingSource)
         {
-            const string QueryString = "SELECT * from callback.callback";
             bindingSource.EndEdit();
 
-            var ds = (DataSet)bindingSource.DataSource;
-
+            const string QueryString = "SELECT * from callback.callback";
+            var dataTable = (DataTable)bindingSource.DataSource;
             using (var connection = new MySqlConnection(ConnectionString))
             {
                 var dataAdapter = new MySqlDataAdapter(QueryString, connection);
                 dataAdapter.UpdateCommand = new MySqlCommandBuilder(dataAdapter).GetUpdateCommand();
-                dataAdapter.Update(ds);
+                dataAdapter.Update(dataTable);
             }
         }
     }
