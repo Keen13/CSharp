@@ -13,18 +13,18 @@ namespace SearchMovies.Models
         //{
         //    var arni = new Actors() { Name = "Арнольд", FirstName = "Шварценеггер" };
         //    var brus = new Actors() { Name = "Брюс", FirstName = "Уиллис" };
-            
-        //    db.Movies.Add(new Movies 
-        //        { 
-        //            Name = "Терминатор", 
-        //            Genre = "боевик", 
+
+        //    db.Movies.Add(new Movies
+        //        {
+        //            Name = "Терминатор",
+        //            Genre = "боевик",
         //            ListActors = ListActors(new ListStack<Actors>
         //            {
         //                arni
-        //            } )
+        //            })
         //        });
-            
-        //    db.Movies.Add(new Movies 
+
+        //    db.Movies.Add(new Movies
         //        {
         //            Name = "Ред",
         //            Genre = "боевик",

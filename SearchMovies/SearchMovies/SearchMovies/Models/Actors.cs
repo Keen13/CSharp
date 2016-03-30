@@ -10,9 +10,9 @@ namespace SearchMovies.Models
         public string Name { set; get; }
         public string FirstName { set; get; }
 
-        //public override string ToString()
-        //{
-        //    return String.Format("{0} {1}", Name, FirstName );
-        //}
+        public override string ToString()
+        {
+            return String.Format("{0} {1}", Name, FirstName);
+        }
     }
 }
