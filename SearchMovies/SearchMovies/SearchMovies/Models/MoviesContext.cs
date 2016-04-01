@@ -8,7 +8,15 @@ namespace SearchMovies.Models
 {
     public class MoviesContext : DbContext
     {
-        public DbSet<Movies> Movies { set; get; }
-        public DbSet<Actors> Actors { set; get; }
+        public MoviesContext()
+        {
+            Database.SetInitializer<MoviesContext>(null);
+        }
+
+        public DbSet<Movies> Movies { get; set; }
+
+        public DbSet<Actors> Actors { get; set; }
+
+
     }
 }

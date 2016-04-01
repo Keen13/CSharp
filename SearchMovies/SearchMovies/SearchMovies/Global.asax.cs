@@ -14,7 +14,7 @@ namespace SearchMovies
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new MoviesDbInitializer());
+            //Database.SetInitializer(new MoviesDbInitializer());
             
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

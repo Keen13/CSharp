@@ -13,7 +13,7 @@ namespace SearchMovies.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Movies);
+            return View(db.Movies.ToList());
         }
 
     }
